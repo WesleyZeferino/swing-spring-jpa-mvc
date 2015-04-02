@@ -7,7 +7,6 @@ import javax.persistence.PrePersist;
 import javax.persistence.Transient;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
-import org.springframework.stereotype.Component;
 
 @SuppressWarnings("unused")
 public class Entidade extends AbstractPersistable<Integer> {

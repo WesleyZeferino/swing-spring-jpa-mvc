@@ -17,7 +17,7 @@ import org.jdesktop.beansbinding.Validator;
 import org.jdesktop.swingbinding.JTableBinding;
 import org.jdesktop.swingbinding.SwingBindings;
 
-@SuppressWarnings({ "unchecked", "rawtypes"})
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public final class BindingUtil {
 
 	private final BindingGroup bindingGroup;

@@ -17,13 +17,15 @@ import br.com.arq.model.Cliente;
 
 @Component
 @SuppressWarnings("unused")
-public class ManterClienteUI extends AppUI<Cliente> {
+public class CadastrarClienteUI extends AppUI<Cliente> {
 
 	@Autowired
 	private AppFrame frame;
 
 	private JButton btnSalvar;
 	private Cliente cliente;
+
+	private JButton btnListar;
 
 	@Override
 	public void iniciarDados() {
@@ -57,8 +59,11 @@ public class ManterClienteUI extends AppUI<Cliente> {
 
 	private JPanel getPanelBtns() {
 		btnSalvar = new JButton("Salvar");
+		btnListar = new JButton("Listar");
+
 		final JPanel panel = new JPanel(new MigLayout());
 		panel.add(btnSalvar);
+		panel.add(btnListar);
 		return panel;
 	}
 
@@ -75,6 +80,10 @@ public class ManterClienteUI extends AppUI<Cliente> {
 		panel.add(new JLabel("CPF:"));
 		panel.add(txtCPF);
 		return panel;
+	}
+
+	public JButton getBtnListar() {
+		return btnListar;
 	}
 
 	public JButton getBtnSalvar() {

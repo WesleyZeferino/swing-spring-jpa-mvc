@@ -13,17 +13,17 @@ import br.com.arq.model.Entidade;
 
 @Component
 public class Validador<T extends Entidade> {
-	
+
 	private final static ValidatorFactory FACTORY = buildDefaultValidatorFactory();
-	
-	public String validar(T entidade) {
-		StringBuilder sb = new StringBuilder();
+
+	public String validar(final T entidade) {
+		final StringBuilder sb = new StringBuilder();
 		if (entidade != null) {
-			javax.validation.Validator validator = FACTORY.getValidator();
-			Set<ConstraintViolation<T>> constraintViolations = validator.validate(entidade);
-			
+			final javax.validation.Validator validator = FACTORY.getValidator();
+			final Set<ConstraintViolation<T>> constraintViolations = validator.validate(entidade);
+
 			if (!constraintViolations.isEmpty()) {
-				for (ConstraintViolation<T> constraint: constraintViolations) {
+				for (final ConstraintViolation<T> constraint : constraintViolations) {
 					sb.append(String.format("%n%s: %s", constraint.getPropertyPath(), constraint.getMessage()));
 				}
 			}

@@ -17,12 +17,12 @@ public class Cliente extends Entidade {
 
 	@NotNull
 	private String cpf;
-	
+
 	public Cliente() {
 		super();
 	}
 
-	public Cliente(String nome, String cpf) {
+	public Cliente(final String nome, final String cpf) {
 		super();
 		setNome(nome);
 		setCpf(cpf);

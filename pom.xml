@@ -133,14 +133,14 @@
 	</dependencies>
 
 	<build>
-		<finalName>gerenciador-bancario</finalName>
+		<finalName>swing-arq</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>br.com.finan.form.principal.Main</mainClass>
+							<mainClass>br.com.arq.main.Main</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>
