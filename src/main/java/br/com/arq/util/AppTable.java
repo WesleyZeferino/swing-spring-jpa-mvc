@@ -6,9 +6,11 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.border.EtchedBorder;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -28,6 +30,7 @@ public class AppTable<T> {
 	private JButton btnProximo;
 	private JButton btnUltimo;
 	private JPanel pnlPaginacao;
+	private JLabel lbPag;
 	
 	@PostConstruct
 	private void init() {
@@ -40,6 +43,9 @@ public class AppTable<T> {
 		btnAnterior = new JButton("<");
 		btnProximo = new JButton(">");
 		btnUltimo = new JButton(">>");
+		lbPag = new JLabel("(0 de 0)");
+		
+		pnlPaginacao.setBorder(new EtchedBorder());
 		
 		btnPrimeiro.addActionListener(e -> irPrimeiroRegistro());
 		btnAnterior.addActionListener(e -> irRegistroAnterior());
@@ -48,6 +54,7 @@ public class AppTable<T> {
 		
 		pnlPaginacao.add(btnPrimeiro);
 		pnlPaginacao.add(btnAnterior);
+		pnlPaginacao.add(lbPag);
 		pnlPaginacao.add(btnProximo);
 		pnlPaginacao.add(btnUltimo);
 		
@@ -76,8 +83,8 @@ public class AppTable<T> {
 	
 	public JComponent getComponente() {
 		JPanel painel = new JPanel(new MigLayout());
-		painel.add(scroll);
-		painel.add(pnlPaginacao);
+		painel.add(scroll, "wrap");
+		painel.add(pnlPaginacao, "wrap");
 		return painel;
 	}
 	

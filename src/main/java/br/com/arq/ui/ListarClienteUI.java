@@ -31,6 +31,7 @@ public class ListarClienteUI extends AppUI<Cliente> {
 		
 		frame = new JFrame();
 		frame.getContentPane().setLayout(new MigLayout());
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(getTabela(), "wrap");
 		frame.add(btnAtualizar);
 		frame.pack();
