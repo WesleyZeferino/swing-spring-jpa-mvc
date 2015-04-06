@@ -23,7 +23,6 @@ public class CadastrarClienteController extends AppController<Cliente> {
 
 	@PostConstruct
 	private void init() {
-		ui.show();
 		registrarAcoes();
 	}
 

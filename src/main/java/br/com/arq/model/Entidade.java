@@ -3,6 +3,8 @@ package br.com.arq.model;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.PrePersist;
 import javax.persistence.Transient;
 
@@ -13,6 +15,7 @@ public class Entidade extends AbstractPersistable<Integer> {
 
 	private static final long serialVersionUID = 1L;
 
+	@Enumerated(EnumType.ORDINAL)
 	private StatusEntidade status;
 
 	@Transient
