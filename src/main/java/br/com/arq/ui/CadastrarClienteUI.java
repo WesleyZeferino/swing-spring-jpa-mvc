@@ -23,9 +23,9 @@ public class CadastrarClienteUI extends AppUI<Cliente> {
 	private AppFrame frame;
 
 	private JButton btnSalvar;
-	private Cliente cliente;
-
 	private JButton btnListar;
+	
+	private Cliente cliente;
 
 	@Override
 	public void iniciarDados() {
@@ -53,7 +53,7 @@ public class CadastrarClienteUI extends AppUI<Cliente> {
 	}
 
 	@Override
-	public java.awt.Component getFramePrincipal() {
+	public java.awt.Component getFrame() {
 		return frame;
 	}
 
@@ -88,10 +88,6 @@ public class CadastrarClienteUI extends AppUI<Cliente> {
 
 	public JButton getBtnSalvar() {
 		return btnSalvar;
-	}
-
-	public JFrame getFrame() {
-		return frame;
 	}
 
 	public Cliente getCliente() {

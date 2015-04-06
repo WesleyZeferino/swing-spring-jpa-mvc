@@ -1,12 +1,10 @@
 package br.com.arq.controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.List;
-
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import br.com.arq.dao.ClienteDAO;
@@ -23,16 +21,13 @@ public class ListarClienteController extends AppController<Cliente> {
 	private ListarClienteUI ui;
 
 	@PostConstruct
-	@SuppressWarnings("unused")
 	private void init() {
-		ui.getBtnAtualizar().addActionListener(new ActionListener() {
-			public void actionPerformed(final ActionEvent e) {
-				final List<Cliente> clientes = dao.findAll();
-				ui.setDados(clientes);
-			}
+		ui.getBtnAtualizar().addActionListener(e -> {
+			Page<Cliente> page = dao.findAll(new PageRequest(0, 15));
+			ui.setDados(page.getContent());
 		});
 	}
-
+	
 	@Override
 	public ClienteDAO getDao() {
 		return dao;

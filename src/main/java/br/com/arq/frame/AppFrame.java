@@ -9,7 +9,6 @@ import net.miginfocom.swing.MigLayout;
 import org.springframework.stereotype.Component;
 
 @Component
-@SuppressWarnings("unused")
 public class AppFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;

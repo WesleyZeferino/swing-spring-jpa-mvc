@@ -27,11 +27,13 @@ public abstract class AppUI<T extends Entidade> {
 
 	public abstract T getEntidade();
 
-	public abstract void show();
+	public void show() {
+		getFrame().setVisible(true);
+	}
 
 	public abstract void iniciarDados();
 
-	public abstract java.awt.Component getFramePrincipal();
+	public abstract java.awt.Component getFrame();
 
 	public String validar() {
 		return validador.validar(getEntidade());

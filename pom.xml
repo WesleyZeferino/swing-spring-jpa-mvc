@@ -8,7 +8,9 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.version>3.1.2.RELEASE</spring.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<spring.version>4.1.6.RELEASE</spring.version>
 	</properties>
 
 	<dependencies>
@@ -78,14 +80,14 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>4.2.6.Final</version>
+			<version>4.3.8.Final</version>
 			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<version>4.2.6.Final</version>
+			<version>4.3.8.Final</version>
 		</dependency>
 		<!-- /HIBERNATE -->
 
@@ -143,9 +145,13 @@
 							<mainClass>br.com.arq.main.Main</mainClass>
 						</manifest>
 					</archive>
+					
 					<descriptorRefs>
 						<descriptorRef>jar-with-dependencies</descriptorRef>
 					</descriptorRefs>
+					
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
 		</plugins>

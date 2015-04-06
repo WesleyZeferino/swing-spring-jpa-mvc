@@ -1,8 +1,5 @@
 package br.com.arq.controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +10,6 @@ import br.com.arq.model.Cliente;
 import br.com.arq.ui.CadastrarClienteUI;
 
 @Component
-@SuppressWarnings("unused")
 public class CadastrarClienteController extends AppController<Cliente> {
 
 	@Autowired
@@ -32,17 +28,8 @@ public class CadastrarClienteController extends AppController<Cliente> {
 	}
 
 	private void registrarAcoes() {
-		ui.getBtnSalvar().addActionListener(new ActionListener() {
-			public void actionPerformed(final ActionEvent e) {
-				salvar(ui);
-			}
-		});
-
-		ui.getBtnListar().addActionListener(new ActionListener() {
-			public void actionPerformed(final ActionEvent e) {
-				listaController.getUi().show();
-			}
-		});
+		ui.getBtnSalvar().addActionListener(e -> salvar(ui));
+		ui.getBtnListar().addActionListener(e -> listaController.getUi().show());
 	}
 
 	@Override
