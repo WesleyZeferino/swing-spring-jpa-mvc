@@ -1,14 +1,19 @@
 package br.com.arq.ui;
 
+import java.util.Arrays;
+
 import javax.swing.JComboBox;
+import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
+import javax.swing.border.EtchedBorder;
 import javax.swing.text.JTextComponent;
+
+import net.miginfocom.swing.MigLayout;
 
 import org.jdesktop.beansbinding.BindingGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.arq.frame.AppFrame;
 import br.com.arq.model.Entidade;
 import br.com.arq.util.BindingUtil;
 import br.com.arq.validation.Validador;
@@ -24,12 +29,8 @@ public abstract class AppUI<T extends Entidade> {
 	public AppUI() {
 		binding = BindingUtil.create(new BindingGroup());
 	}
-
+	
 	public abstract T getEntidade();
-
-	public void show() {
-		getFrame().setVisible(true);
-	}
 
 	public abstract void iniciarDados();
 
@@ -40,9 +41,17 @@ public abstract class AppUI<T extends Entidade> {
 	}
 
 	public void limparComponentes(final java.awt.Component component) {
-		if (component instanceof AppFrame) {
-			limparComponentes(((AppFrame) component).getPanelFormulario());
-		}
+		if (component instanceof JInternalFrame) {
+			limparComponentes(((JInternalFrame) component).getContentPane().getComponents());
+		} 
+	}
+	
+	public void limparComponentes(final java.awt.Component[] components) {
+		Arrays.asList(components).forEach(comp -> {
+			if (comp instanceof JPanel) {
+				limparComponentes((JPanel) comp);
+			}
+		});
 	}
 
 	public void limparComponentes(final JPanel container) {
@@ -65,5 +74,11 @@ public abstract class AppUI<T extends Entidade> {
 
 	protected BindingUtil getBinding() {
 		return binding;
+	}
+
+	protected JPanel createJPanel() {
+		JPanel pnl = new JPanel(new MigLayout());
+		pnl.setBorder(new EtchedBorder());
+		return pnl;
 	}
 }

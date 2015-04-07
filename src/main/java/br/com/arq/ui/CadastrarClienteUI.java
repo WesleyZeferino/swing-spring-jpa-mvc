@@ -2,6 +2,7 @@ package br.com.arq.ui;
 
 import javax.annotation.PostConstruct;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -31,6 +32,11 @@ public class CadastrarClienteUI extends AppUI<Cliente> {
 	public void iniciarDados() {
 		cliente = new Cliente();
 	}
+	
+	@Override
+	public java.awt.Component getFrame() {
+		return frame;
+	}
 
 	@PostConstruct
 	private void init() {
@@ -45,16 +51,6 @@ public class CadastrarClienteUI extends AppUI<Cliente> {
 	@Override
 	public Cliente getEntidade() {
 		return cliente;
-	}
-
-	@Override
-	public void show() {
-		frame.setVisible(true);
-	}
-
-	@Override
-	public java.awt.Component getFrame() {
-		return frame;
 	}
 
 	private JPanel getPanelBtns() {

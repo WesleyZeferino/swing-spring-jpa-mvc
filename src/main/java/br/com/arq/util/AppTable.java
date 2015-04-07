@@ -3,7 +3,6 @@ package br.com.arq.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -15,11 +14,9 @@ import javax.swing.border.EtchedBorder;
 import net.miginfocom.swing.MigLayout;
 
 import org.jdesktop.observablecollections.ObservableCollections;
-import org.springframework.stereotype.Component;
 
 import br.com.arq.util.BindingUtil.ColumnBinding;
 
-@Component
 public class AppTable<T> {
 
 	private List<T> dados;
@@ -31,8 +28,12 @@ public class AppTable<T> {
 	private JButton btnUltimo;
 	private JPanel pnlPaginacao;
 	private JLabel lbPag;
+	private JButton btnAtualizar;
 	
-	@PostConstruct
+	public AppTable() {
+		init();
+	}
+	
 	private void init() {
 		dados = ObservableCollections.observableList(new ArrayList<T>());
 		tabela = new JTable();
@@ -43,6 +44,7 @@ public class AppTable<T> {
 		btnAnterior = new JButton("<");
 		btnProximo = new JButton(">");
 		btnUltimo = new JButton(">>");
+		btnAtualizar = new JButton("Atualizar");
 		lbPag = new JLabel("(0 de 0)");
 		
 		pnlPaginacao.setBorder(new EtchedBorder());
@@ -56,7 +58,8 @@ public class AppTable<T> {
 		pnlPaginacao.add(btnAnterior);
 		pnlPaginacao.add(lbPag);
 		pnlPaginacao.add(btnProximo);
-		pnlPaginacao.add(btnUltimo);
+		pnlPaginacao.add(btnUltimo, "pushx");
+		pnlPaginacao.add(btnAtualizar);
 		
 		scroll.setViewportView(tabela);
 	}
@@ -99,5 +102,9 @@ public class AppTable<T> {
 	
 	public JTable getTabela() {
 		return tabela;
+	}
+	
+	public JButton getBtnAtualizar() {
+		return btnAtualizar;
 	}
 }

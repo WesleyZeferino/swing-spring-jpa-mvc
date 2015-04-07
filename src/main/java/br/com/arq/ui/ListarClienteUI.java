@@ -1,6 +1,5 @@
 package br.com.arq.ui;
 
-import java.awt.Component;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,9 +8,6 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 
 import net.miginfocom.swing.MigLayout;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
 import br.com.arq.model.Cliente;
 import br.com.arq.util.AppTable;
 import br.com.arq.util.BindingUtil.ColumnBinding;
@@ -21,8 +17,6 @@ public class ListarClienteUI extends AppUI<Cliente> {
 
 	private JFrame frame;
 	private JButton btnAtualizar;
-	
-	@Autowired
 	private AppTable<Cliente> tabela;
 	
 	@PostConstruct
@@ -40,6 +34,8 @@ public class ListarClienteUI extends AppUI<Cliente> {
 	}
 
 	private JComponent getTabela() {
+		tabela = new AppTable<Cliente>();
+		
 		final ColumnBinding clBinding = tabela.bind(getBinding());
 		clBinding.addColumnBinding(0, "${nome}", "Nome");
 		clBinding.addColumnBinding(1, "${cpf}", "CPF");
@@ -56,7 +52,7 @@ public class ListarClienteUI extends AppUI<Cliente> {
 	}
 
 	@Override
-	public Component getFrame() {
+	public java.awt.Component getFrame() {
 		return frame;
 	}
 

@@ -1,9 +1,5 @@
 package br.com.arq.controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.List;
-
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +7,10 @@ import org.springframework.stereotype.Component;
 
 import br.com.arq.dao.CategoriaDAO;
 import br.com.arq.dao.FolhaDAO;
-import br.com.arq.model.Categoria;
+import br.com.arq.model.ContaBancaria;
 import br.com.arq.model.Folha;
 import br.com.arq.ui.CadastrarFolhaUI;
+import br.com.arq.ui.ListarFolhaUI;
 
 @Component
 public class CadastrarFolhaController extends AppController<Folha> {
@@ -27,17 +24,30 @@ public class CadastrarFolhaController extends AppController<Folha> {
 	@Autowired
 	private CadastrarFolhaUI ui;
 	
+	@Autowired
+	private ListarFolhaUI listUi;
+	
+	private ContaBancaria contaSelecionada;
+	
 	@PostConstruct
-	@SuppressWarnings("unused")
 	private void init() {
-		List<Categoria> categorias = categoriaDAO.findAll();
-		ui.setCategorias(categorias);
-		
-		ui.getBtnSalvar().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ui.getEntidade();
-			}
+		ui.getBtnSalvar().addActionListener(e -> {
+			getUi().getFolha().setConta(contaSelecionada);
+			salvar(getUi());
 		});
+		
+		ui.getBtnListar().addActionListener(e -> {
+			listUi.getTabela().setDados(dao.findAll());
+			listUi.show();
+		});
+	}
+	
+	public void setContaSelecionada(ContaBancaria contaSelecionada) {
+		this.contaSelecionada = contaSelecionada;
+	}
+	
+	public ContaBancaria getContaSelecionada() {
+		return contaSelecionada;
 	}
 	
 	public CadastrarFolhaUI getUi() {

@@ -65,7 +65,6 @@ public class Folha extends Entidade {
 	private Date dataLancamento;
 	
 	@PrePersist
-	@SuppressWarnings("unused")
 	private void preSalvar() {
 		setDataLancamento(new Date());
 	}

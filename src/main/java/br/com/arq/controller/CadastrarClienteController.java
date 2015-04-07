@@ -28,7 +28,6 @@ public class CadastrarClienteController extends AppController<Cliente> {
 
 	private void registrarAcoes() {
 		ui.getBtnSalvar().addActionListener(e -> salvar(ui));
-		ui.getBtnListar().addActionListener(e -> listaController.getUi().show());
 	}
 
 	@Override

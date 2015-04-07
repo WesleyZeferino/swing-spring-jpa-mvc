@@ -10,7 +10,6 @@ import javax.persistence.Transient;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
-@SuppressWarnings("unused")
 public class Entidade extends AbstractPersistable<Integer> {
 
 	private static final long serialVersionUID = 1L;

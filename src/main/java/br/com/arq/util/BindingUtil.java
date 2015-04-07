@@ -94,13 +94,17 @@ public final class BindingUtil {
 	public BindingUtil add(final Object source, final String sourceEl, final Object target, final String targetEl) {
 		return add(source, sourceEl, target, targetEl, null, null);
 	}
-
+	
 	public BindingUtil add(final Object source, final String sourceEl, final Object target, final Converter converter) {
 		return add(source, sourceEl, target, "text", converter, null);
 	}
 
 	public BindingUtil add(final Object source, final String sourceEl, final Object target, final Validator validator) {
 		return add(source, sourceEl, target, "text", null, validator);
+	}
+	
+	public BindingUtil add(final Object source, final String sourceEl, final Object target, final String targetEl, final Converter converter) {
+		return add(source, sourceEl, target, targetEl, converter, null);
 	}
 
 	public BindingUtil add(final Object source, final String sourceEl, final Object target, final String targetEl, final Converter converter, final Validator validator) {
