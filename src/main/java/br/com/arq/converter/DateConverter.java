@@ -18,15 +18,15 @@ public class DateConverter extends Converter<Date, String> {
 	private static final String REGEX = "\\d{2}/\\d{2}/\\d{4}";
 
 	@Override
-	public String convertForward(final Date s) {
-		return new SimpleDateFormat(MASK_DATE).format(s);
+	public String convertForward(final Date data) {
+		return new SimpleDateFormat(MASK_DATE).format(data);
 	}
 
 	@Override
-	public Date convertReverse(final String t) {
+	public Date convertReverse(final String data) {
 		try {
-			if (t.matches(REGEX)) {
-				return new SimpleDateFormat(MASK_DATE).parse(t);
+			if (data.matches(REGEX)) {
+				return new SimpleDateFormat(MASK_DATE).parse(data);
 			}
 		} catch (final ParseException ex) {
 			Logger.getLogger(DateConverter.class.getName()).log(Level.SEVERE, null, ex);

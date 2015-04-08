@@ -36,11 +36,12 @@ public abstract class AppUI<T extends Entidade> {
 
 	public abstract java.awt.Component getFrame();
 
-	public String validar() {
-		return validador.validar(getEntidade());
+	public void validar() {
+		validador.validar(getEntidade());
 	}
 
-	public void limparComponentes(final java.awt.Component component) {
+	public void limparComponentes() {
+		final java.awt.Component component = getFrame();
 		if (component instanceof JInternalFrame) {
 			limparComponentes(((JInternalFrame) component).getContentPane().getComponents());
 		} 

@@ -18,11 +18,15 @@ public class ListarFolhaController extends AppController<Folha> {
 	@Autowired
 	private ListarFolhaUI ui;
 	
+	private PaginacaoController<Folha, FolhaDAO> pgController;
+	
 	@PostConstruct
 	private void init() {
-		ui.getTabela().getBtnAtualizar().addActionListener(e -> {
-			ui.getTabela().setDados(dao.findAll());
-		});
+		pgController = new PaginacaoController<Folha, FolhaDAO>(dao, ui.getTabela());
+	}
+	
+	public PaginacaoController<Folha, FolhaDAO> getPgController() {
+		return pgController;
 	}
 	
 	public ListarFolhaUI getUi() {

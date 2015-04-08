@@ -3,6 +3,7 @@ package br.com.arq.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -47,12 +48,17 @@ public class Folha extends Entidade {
 	@Size(max = 255)
 	private String descricao;
 	
+	@Column
 	private int parcela;
 	
+	@Column
 	private int totalParcela;
 	
+	@Enumerated(EnumType.ORDINAL)
 	private TipoPagamento tipoPagamento;
 	
+	@ManyToOne
+	@JoinColumn(nullable = true)
 	private Folha filho;
 	
 	@Temporal(TemporalType.DATE)

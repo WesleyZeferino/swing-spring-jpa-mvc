@@ -3,7 +3,6 @@ package br.com.arq.ui;
 import java.awt.Component;
 
 import javax.annotation.PostConstruct;
-import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -13,14 +12,12 @@ import net.miginfocom.swing.MigLayout;
 import br.com.arq.model.Categoria;
 
 @org.springframework.stereotype.Component
-public class CadastrarCategoriaUI extends AppUI<Categoria> {
+public class CadastrarCategoriaUI extends CadastroUI<Categoria> {
 
 	private static final String TITULO_FRAME = "Cadastro de Categoria";
 	
 	private Categoria entidade;
 	private JInternalFrame frame;
-	private JButton btnSalvar;
-	private JButton btnSair;
 
 	@Override
 	public void iniciarDados() {
@@ -38,17 +35,6 @@ public class CadastrarCategoriaUI extends AppUI<Categoria> {
 		
 		iniciarDados();
 		bind();
-	}
-
-	private Component getPanelBtns() {
-		btnSalvar = new JButton("Salvar");
-		btnSair = new JButton("Sair");
-		
-		JPanel pnl = createJPanel();
-		pnl.add(btnSalvar);
-		pnl.add(btnSair);
-		
-		return pnl;
 	}
 
 	private Component getPanelCadastro() {
@@ -76,13 +62,4 @@ public class CadastrarCategoriaUI extends AppUI<Categoria> {
 	public void setEntidade(Categoria entidade) {
 		this.entidade = entidade;
 	}
-
-	public JButton getBtnSalvar() {
-		return btnSalvar;
-	}
-
-	public JButton getBtnSair() {
-		return btnSair;
-	}
-
 }

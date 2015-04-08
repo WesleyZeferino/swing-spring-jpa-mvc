@@ -6,11 +6,13 @@ import java.util.Arrays;
 import javax.annotation.PostConstruct;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.text.MaskFormatter;
 
@@ -22,8 +24,10 @@ import org.springframework.stereotype.Component;
 import br.com.arq.component.JMoneyField;
 import br.com.arq.converter.BigDecimalConverter;
 import br.com.arq.converter.DateConverter;
+import br.com.arq.converter.IntegerConverter;
 import br.com.arq.model.Categoria;
 import br.com.arq.model.Folha;
+import br.com.arq.model.Frequencia;
 import br.com.arq.model.StatusFolha;
 import br.com.arq.model.TipoFolha;
 import br.com.arq.model.TipoPagamento;
@@ -31,23 +35,42 @@ import br.com.arq.util.BindingUtil;
 import br.com.arq.util.ListasUteis;
 
 @Component
-public class CadastrarFolhaUI extends AppUI<Folha> {
+public class CadastrarFolhaUI extends CadastroUI<Folha> {
 
+	private static final String TITULO_FRAME_RECORRENCIA = "Recorrência";
 	private static final String TITULO_FRAME = "Cadastro de Folha";
 	
 	@Autowired
 	private ListasUteis listas;
 	
 	private JInternalFrame frame;
+	private JDialog dialogRecorrencia;
 	private JPanel panelCadastro;
 	private Folha folha;
-	private JButton btnSalvar;
-	private JButton btnSair;
-	private JButton btnListar;
+	private Frequencia frequencia;
+	private Integer repeticaoFreq;
+	private JButton btnSalvarRec;
+	private JButton btnCancelarRec;
 
+	@Override
+	public void iniciarDados() {
+		folha = new Folha();
+		frequencia = Frequencia.DIARIO;
+		repeticaoFreq = 1;
+	}
+	
 	@PostConstruct
 	private void init() {
 		gerarPainelCadastro();
+		
+		dialogRecorrencia = new JDialog();
+		dialogRecorrencia.setTitle(TITULO_FRAME_RECORRENCIA);
+		dialogRecorrencia.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		dialogRecorrencia.setModal(true);
+		dialogRecorrencia.getContentPane().setLayout(new MigLayout());
+		dialogRecorrencia.add(getPainelRecorrencia(), "wrap");
+		dialogRecorrencia.add(getBtnsRecorrencia());
+		dialogRecorrencia.pack();
 
 		frame = new JInternalFrame(TITULO_FRAME);
 		frame.setClosable(true);
@@ -59,6 +82,35 @@ public class CadastrarFolhaUI extends AppUI<Folha> {
 
 		iniciarDados();
 		bind();
+	}
+
+	private JPanel getBtnsRecorrencia() {
+		btnSalvarRec = new JButton("Salvar");
+		btnCancelarRec = new JButton("Cancelar");
+		
+		JPanel panel = createJPanel();
+		panel.add(btnSalvarRec);
+		panel.add(btnCancelarRec);
+		
+		return panel;
+	}
+
+	private JPanel getPainelRecorrencia() {
+		JComboBox<Frequencia> cmbFreq = new JComboBox<Frequencia>();
+		JTextField txtMaximo = new JTextField(20);
+		
+		getBinding().addJComboBoxBinding(Arrays.asList(Frequencia.values()), cmbFreq);
+		getBinding().add(this, "${frequencia}", cmbFreq, "selectedItem");
+		getBinding().add(this, "${repeticaoFreq}", txtMaximo, new IntegerConverter());
+		
+		JPanel panel = createJPanel();
+		panel.add(new JLabel("Insira a frequência com que essa folha será cadastrada."), "wrap, spanx2");
+		panel.add(new JLabel("Recorrência:"));
+		panel.add(cmbFreq, "wrap, grow");
+		panel.add(new JLabel("Limite:"));
+		panel.add(txtMaximo);
+		
+		return panel;
 	}
 
 	private void gerarPainelCadastro() {
@@ -112,28 +164,9 @@ public class CadastrarFolhaUI extends AppUI<Folha> {
 		panelCadastro.add(txtDescricao, "wrap, growx");
 	}
 
-	private JPanel getPanelBtns() {
-		btnSalvar = new JButton("Salvar");
-		btnSair = new JButton("Sair");
-		btnListar = new JButton("Listar");
-		
-		JPanel panel = new JPanel(new MigLayout());
-		panel.setBorder(new EtchedBorder());
-		panel.add(btnSalvar);
-		panel.add(btnSair);
-		panel.add(btnListar);
-		
-		return panel;
-	}
-	
 	@Override
 	public Folha getEntidade() {
 		return this.folha;
-	}
-	
-	@Override
-	public void iniciarDados() {
-		folha = new Folha();
 	}
 	
 	@Override
@@ -141,18 +174,6 @@ public class CadastrarFolhaUI extends AppUI<Folha> {
 		return frame;
 	}
 	
-	public JButton getBtnListar() {
-		return btnListar;
-	}
-
-	public JButton getBtnSalvar() {
-		return btnSalvar;
-	}
-	
-	public JButton getBtnSair() {
-		return btnSair;
-	}
-
 	public Folha getFolha() {
 		return folha;
 	}
@@ -161,4 +182,31 @@ public class CadastrarFolhaUI extends AppUI<Folha> {
 		this.folha = folha;
 	}
 
+	public JDialog getDialogRecorrencia() {
+		return dialogRecorrencia;
+	}
+
+	public void setFrequencia(Frequencia frequencia) {
+		this.frequencia = frequencia;
+	}
+
+	public void setRepeticaoFreq(Integer repeticaoFreq) {
+		this.repeticaoFreq = repeticaoFreq;
+	}
+
+	public Frequencia getFrequencia() {
+		return frequencia;
+	}
+
+	public Integer getRepeticaoFreq() {
+		return repeticaoFreq;
+	}
+
+	public JButton getBtnSalvarRec() {
+		return btnSalvarRec;
+	}
+
+	public JButton getBtnCancelarRec() {
+		return btnCancelarRec;
+	}
 }

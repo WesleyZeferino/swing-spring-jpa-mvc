@@ -3,7 +3,6 @@ package br.com.arq.ui;
 import java.awt.Component;
 
 import javax.annotation.PostConstruct;
-import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -13,15 +12,12 @@ import net.miginfocom.swing.MigLayout;
 import br.com.arq.model.ContaBancaria;
 
 @org.springframework.stereotype.Component
-public class CadastrarContaUI extends AppUI<ContaBancaria> {
+public class CadastrarContaUI extends CadastroUI<ContaBancaria> {
 
 	private static final String TITULO_FRAME = "Cadastro de Conta";
 	
 	private ContaBancaria entidade;
 	private JInternalFrame frame;
-	private JButton btnSalvar;
-	private JButton btnListar;
-	private JButton btnSair;
 	
 	@Override
 	public void iniciarDados() {
@@ -39,19 +35,6 @@ public class CadastrarContaUI extends AppUI<ContaBancaria> {
 		
 		iniciarDados();
 		bind();
-	}
-
-	private Component getPanelBtns() {
-		btnSalvar = new JButton("Salvar");
-		btnListar = new JButton("Listar");
-		btnSair = new JButton("Sair");
-		
-		JPanel pnl = createJPanel();
-		pnl.add(btnSalvar);
-		pnl.add(btnListar);
-		pnl.add(btnSair);
-		
-		return pnl;
 	}
 
 	private JPanel getPanelCadastro() {
@@ -78,17 +61,4 @@ public class CadastrarContaUI extends AppUI<ContaBancaria> {
 	public void setEntidade(ContaBancaria entidade) {
 		this.entidade = entidade;
 	}
-
-	public JButton getBtnSalvar() {
-		return btnSalvar;
-	}
-
-	public JButton getBtnListar() {
-		return btnListar;
-	}
-
-	public JButton getBtnSair() {
-		return btnSair;
-	}
-	
 }

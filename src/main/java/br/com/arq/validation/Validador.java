@@ -16,7 +16,7 @@ public class Validador<T extends Entidade> {
 
 	private final static ValidatorFactory FACTORY = buildDefaultValidatorFactory();
 
-	public String validar(final T entidade) {
+	public void validar(final T entidade) {
 		final StringBuilder sb = new StringBuilder();
 		if (entidade != null) {
 			final javax.validation.Validator validator = FACTORY.getValidator();
@@ -28,7 +28,11 @@ public class Validador<T extends Entidade> {
 				}
 			}
 		}
-		return sb.toString();
+		
+		String mensagem = sb.toString();
+		
+		if (!mensagem.isEmpty()) {
+			throw new ValidacaoException(mensagem);
+		}
 	}
-
 }

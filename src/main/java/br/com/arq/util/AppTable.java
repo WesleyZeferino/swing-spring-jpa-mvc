@@ -27,7 +27,7 @@ public class AppTable<T> {
 	private JButton btnProximo;
 	private JButton btnUltimo;
 	private JPanel pnlPaginacao;
-	private JLabel lbPag;
+	private JLabel lbPaginacao;
 	private JButton btnAtualizar;
 	
 	public AppTable() {
@@ -45,18 +45,13 @@ public class AppTable<T> {
 		btnProximo = new JButton(">");
 		btnUltimo = new JButton(">>");
 		btnAtualizar = new JButton("Atualizar");
-		lbPag = new JLabel("(0 de 0)");
+		lbPaginacao = new JLabel("(0 de 0)");
 		
 		pnlPaginacao.setBorder(new EtchedBorder());
 		
-		btnPrimeiro.addActionListener(e -> irPrimeiroRegistro());
-		btnAnterior.addActionListener(e -> irRegistroAnterior());
-		btnProximo.addActionListener(e -> irProximoRegistro());
-		btnUltimo.addActionListener(e -> irUltimoRegistro());
-		
 		pnlPaginacao.add(btnPrimeiro);
 		pnlPaginacao.add(btnAnterior);
-		pnlPaginacao.add(lbPag);
+		pnlPaginacao.add(lbPaginacao);
 		pnlPaginacao.add(btnProximo);
 		pnlPaginacao.add(btnUltimo, "pushx");
 		pnlPaginacao.add(btnAtualizar);
@@ -64,22 +59,6 @@ public class AppTable<T> {
 		scroll.setViewportView(tabela);
 	}
 	
-	private void irUltimoRegistro() {
-		// TODO Auto-generated method stub
-	}
-
-	private void irProximoRegistro() {
-		// TODO Auto-generated method stub
-	}
-
-	private void irRegistroAnterior() {
-		// TODO Auto-generated method stub
-	}
-
-	private void irPrimeiroRegistro() {
-		// TODO Auto-generated method stub
-	}
-
 	public ColumnBinding bind(final BindingUtil bind) {
 		return bind.addJTableBinding(dados, tabela);
 	}
@@ -106,5 +85,25 @@ public class AppTable<T> {
 	
 	public JButton getBtnAtualizar() {
 		return btnAtualizar;
+	}
+
+	public JButton getBtnPrimeiro() {
+		return btnPrimeiro;
+	}
+
+	public JButton getBtnAnterior() {
+		return btnAnterior;
+	}
+
+	public JButton getBtnProximo() {
+		return btnProximo;
+	}
+
+	public JButton getBtnUltimo() {
+		return btnUltimo;
+	}
+	
+	public JLabel getLbPaginacao() {
+		return lbPaginacao;
 	}
 }
