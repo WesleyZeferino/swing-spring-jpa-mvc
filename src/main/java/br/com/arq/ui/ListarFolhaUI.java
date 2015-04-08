@@ -3,6 +3,8 @@ package br.com.arq.ui;
 import javax.annotation.PostConstruct;
 import javax.swing.JDialog;
 
+import net.miginfocom.swing.MigLayout;
+
 import org.springframework.stereotype.Component;
 
 import br.com.arq.converter.BigDecimalConverter;
@@ -15,7 +17,6 @@ import br.com.arq.util.BindingUtil.ColumnBinding;
 public class ListarFolhaUI extends AppUI<Folha> {
 
 	private AppTable<Folha> tabela;
-	
 	private JDialog frame;
 
 	@Override
@@ -28,7 +29,8 @@ public class ListarFolhaUI extends AppUI<Folha> {
 		gerarTabela();
 		
 		frame = new JDialog();
-		frame.add(tabela.getComponente());
+		frame.getContentPane().setLayout(new MigLayout());
+		frame.add(tabela.getComponente(), "wrap, grow, push");
 		frame.setModal(true);
 		frame.pack();
 		
@@ -39,11 +41,12 @@ public class ListarFolhaUI extends AppUI<Folha> {
 		tabela = new AppTable<Folha>();
 		
 		ColumnBinding bind = tabela.bind(getBinding());
-		bind.addColumnBinding(0, "${categoria}", "Categoria");
+		bind.addColumnBinding(0, "${categoria} ${totalParcela > 1 ? parcela : ''} ${totalParcela > 1 ? ' de ' : ''} ${totalParcela > 1 ? totalParcela : ''}", "Categoria");
 		bind.addColumnBinding(1, "${tipo}", "Tipo");
 		bind.addColumnBinding(2, "${statusFolha}", "Status");
-		bind.addColumnBinding(3, "${dataQuitacao}", "Quitação", new DateConverter());
-		bind.addColumnBinding(4, "${valor}", "Valor", new BigDecimalConverter());
+		bind.addColumnBinding(3, "${dataPrevistaQuitacao}", "Prev. Quitação", new DateConverter());
+		bind.addColumnBinding(4, "${dataQuitacao}", "Quitação", new DateConverter());
+		bind.addColumnBinding(5, "${valor}", "Valor", new BigDecimalConverter());
 	}
 
 	public void show() {
@@ -56,7 +59,7 @@ public class ListarFolhaUI extends AppUI<Folha> {
 	}
 
 	@Override
-	public java.awt.Component getFrame() {
+	public JDialog getFrame() {
 		return frame;
 	}
 	

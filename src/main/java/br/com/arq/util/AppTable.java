@@ -29,60 +29,67 @@ public class AppTable<T> {
 	private JPanel pnlPaginacao;
 	private JLabel lbPaginacao;
 	private JButton btnAtualizar;
-	
+	private JButton btnEditar;
+
 	public AppTable() {
 		init();
 	}
-	
+
 	private void init() {
 		dados = ObservableCollections.observableList(new ArrayList<T>());
 		tabela = new JTable();
 		scroll = new JScrollPane();
 		pnlPaginacao = new JPanel(new MigLayout());
-		
+
 		btnPrimeiro = new JButton("<<");
 		btnAnterior = new JButton("<");
 		btnProximo = new JButton(">");
 		btnUltimo = new JButton(">>");
 		btnAtualizar = new JButton("Atualizar");
+		btnEditar = new JButton("Editar");
 		lbPaginacao = new JLabel("(0 de 0)");
-		
+
 		pnlPaginacao.setBorder(new EtchedBorder());
-		
+
 		pnlPaginacao.add(btnPrimeiro);
 		pnlPaginacao.add(btnAnterior);
 		pnlPaginacao.add(lbPaginacao);
 		pnlPaginacao.add(btnProximo);
 		pnlPaginacao.add(btnUltimo, "pushx");
 		pnlPaginacao.add(btnAtualizar);
-		
+		pnlPaginacao.add(btnEditar);
+
 		scroll.setViewportView(tabela);
 	}
 	
+	public T getItemSelecionado() {
+		return dados.get(tabela.getSelectedRow());
+	}
+
 	public ColumnBinding bind(final BindingUtil bind) {
 		return bind.addJTableBinding(dados, tabela);
 	}
-	
+
 	public JComponent getComponente() {
-		JPanel painel = new JPanel(new MigLayout());
-		painel.add(scroll, "wrap");
-		painel.add(pnlPaginacao, "wrap");
+		final JPanel painel = new JPanel(new MigLayout());
+		painel.add(scroll, "wrap, grow, push");
+		painel.add(pnlPaginacao, "wrap, growx, pushx");
 		return painel;
 	}
-	
-	public void setDados(List<T> dados) {
+
+	public void setDados(final List<T> dados) {
 		this.dados.clear();
 		this.dados.addAll(dados);
 	}
-	
+
 	public List<T> getDados() {
 		return dados;
 	}
-	
+
 	public JTable getTabela() {
 		return tabela;
 	}
-	
+
 	public JButton getBtnAtualizar() {
 		return btnAtualizar;
 	}
@@ -102,8 +109,12 @@ public class AppTable<T> {
 	public JButton getBtnUltimo() {
 		return btnUltimo;
 	}
-	
+
 	public JLabel getLbPaginacao() {
 		return lbPaginacao;
+	}
+
+	public JButton getBtnEditar() {
+		return btnEditar;
 	}
 }

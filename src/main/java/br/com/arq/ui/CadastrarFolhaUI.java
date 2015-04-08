@@ -51,6 +51,14 @@ public class CadastrarFolhaUI extends CadastroUI<Folha> {
 	private Integer repeticaoFreq;
 	private JButton btnSalvarRec;
 	private JButton btnCancelarRec;
+	private JComboBox<TipoFolha> cmbTipoFolha;
+	private JComboBox<StatusFolha> cmbStatus;
+	private JComboBox<TipoPagamento> cmbTipoPagamento;
+	private JComboBox<Categoria> cmbCategoria;
+	private JMoneyField txtValor;
+	private JTextArea txtDescricao;
+	private JFormattedTextField txtQuitacao;
+	private JFormattedTextField txtPrevQuitacao;
 
 	@Override
 	public void iniciarDados() {
@@ -114,14 +122,12 @@ public class CadastrarFolhaUI extends CadastroUI<Folha> {
 	}
 
 	private void gerarPainelCadastro() {
-		final JComboBox<TipoFolha> cmbTipoFolha = new JComboBox<TipoFolha>();
-		final JComboBox<StatusFolha> cmbStatus = new JComboBox<StatusFolha>();
-		final JComboBox<TipoPagamento> cmbTipoPagamento = new JComboBox<TipoPagamento>();
-		final JComboBox<Categoria> cmbCategoria = new JComboBox<Categoria>();
-		final JMoneyField txtValor = new JMoneyField();
-		final JTextArea txtDescricao = new JTextArea(5, 20);
-		JFormattedTextField txtQuitacao = null;
-		JFormattedTextField txtPrevQuitacao = null;
+		cmbTipoFolha = new JComboBox<TipoFolha>();
+		cmbStatus = new JComboBox<StatusFolha>();
+		cmbTipoPagamento = new JComboBox<TipoPagamento>();
+		cmbCategoria = new JComboBox<Categoria>();
+		txtValor = new JMoneyField();
+		txtDescricao = new JTextArea(5, 20);
 
 		try {
 			txtQuitacao = new JFormattedTextField(new MaskFormatter("##/##/####"));
@@ -208,5 +214,37 @@ public class CadastrarFolhaUI extends CadastroUI<Folha> {
 
 	public JButton getBtnCancelarRec() {
 		return btnCancelarRec;
+	}
+	
+	public JComboBox<TipoFolha> getCmbTipoFolha() {
+		return cmbTipoFolha;
+	}
+
+	public JComboBox<StatusFolha> getCmbStatus() {
+		return cmbStatus;
+	}
+
+	public JComboBox<TipoPagamento> getCmbTipoPagamento() {
+		return cmbTipoPagamento;
+	}
+
+	public JComboBox<Categoria> getCmbCategoria() {
+		return cmbCategoria;
+	}
+
+	public JMoneyField getTxtValor() {
+		return txtValor;
+	}
+
+	public JTextArea getTxtDescricao() {
+		return txtDescricao;
+	}
+
+	public JFormattedTextField getTxtQuitacao() {
+		return txtQuitacao;
+	}
+
+	public JFormattedTextField getTxtPrevQuitacao() {
+		return txtPrevQuitacao;
 	}
 }
