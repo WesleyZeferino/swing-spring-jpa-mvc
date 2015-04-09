@@ -39,13 +39,27 @@ public class ListarFolhaController extends PaginacaoController<Folha> {
 		.add(tabela.getTabela(), "${selectedElement.dataPrevistaQuitacao}", cadController.getUi().getTxtPrevQuitacao(), new DateConverter())
 		.add(tabela.getTabela(), "${selectedElement.dataQuitacao}", cadController.getUi().getTxtQuitacao(), new DateConverter())
 		.add(tabela.getTabela(), "${selectedElement.valor}", cadController.getUi().getTxtValor(), new BigDecimalConverter())
-//		.add(tabela.getTabela(), "${selectedElement.tipo}", cadController.getUi().get)
 		.getBindingGroup().bind();
 		
 		tabela.getBtnEditar().addActionListener(e -> {
 			cadController.getUi().setFolha(tabela.getItemSelecionado());
 			ui.getFrame().dispose();
 		});
+		
+		tabela.getBtnCancelar().addActionListener(e -> {
+			cancelar();
+		});
+		
+		ui.getBtnDetalhar().addActionListener(e -> {
+			cancelar();
+			cadController.getUi().iniciarDados();
+			cadController.getUi().setFolhaPai(tabela.getItemSelecionado());
+		});
+	}
+
+	private void cancelar() {
+		ui.getFrame().dispose();
+		cadController.getUi().limparComponentes();
 	}
 	
 	@Override

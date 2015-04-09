@@ -51,6 +51,8 @@ public class PrincipalController {
 		.addJComboBoxBinding(listas.getContas(), ui.getCmbConta())
 		.add(this, "${folhaController.contaSelecionada}", ui.getCmbConta(), "selectedItem")
 		.getBindingGroup().bind();
+		
+		ui.getCmbConta().setSelectedIndex(0);
 	}
 	
 	private void abrirFrame(JComponent frame) {

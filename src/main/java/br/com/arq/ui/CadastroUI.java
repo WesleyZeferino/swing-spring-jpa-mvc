@@ -17,11 +17,13 @@ public abstract class CadastroUI<T extends Entidade> extends AppUI<T> {
 	private JButton btnSalvar;
 	private JButton btnSair;
 	private JButton btnListar;
+	private JButton btnLimpar;
 	
 	@PostConstruct
 	private void init() {
 		btnSalvar = new JButton("Salvar");
 		btnSair = new JButton("Sair");
+		btnLimpar = new JButton("Limpar");
 		btnListar = new JButton("Listar");
 	}
 
@@ -29,10 +31,15 @@ public abstract class CadastroUI<T extends Entidade> extends AppUI<T> {
 		JPanel panel = new JPanel(new MigLayout());
 		panel.setBorder(new EtchedBorder());
 		panel.add(btnSalvar);
+		panel.add(btnLimpar);
+		panel.add(btnListar, "pushx");
 		panel.add(btnSair);
-		panel.add(btnListar);
 		
 		return panel;
+	}
+	
+	public JButton getBtnLimpar() {
+		return btnLimpar;
 	}
 
 	public JButton getBtnSalvar() {

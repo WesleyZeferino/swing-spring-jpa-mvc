@@ -47,6 +47,7 @@ public class CadastrarFolhaUI extends CadastroUI<Folha> {
 	private JDialog dialogRecorrencia;
 	private JPanel panelCadastro;
 	private Folha folha;
+	private Folha folhaPai;
 	private Frequencia frequencia;
 	private Integer repeticaoFreq;
 	private JButton btnSalvarRec;
@@ -65,6 +66,17 @@ public class CadastrarFolhaUI extends CadastroUI<Folha> {
 		folha = new Folha();
 		frequencia = Frequencia.DIARIO;
 		repeticaoFreq = 1;
+		folhaPai = null;
+	}
+
+	public void resetarCombos() {
+		getCmbStatus().setSelectedIndex(0);
+		getCmbTipoFolha().setSelectedIndex(0);
+		getCmbTipoPagamento().setSelectedIndex(0);
+		
+		if (!listas.getCategorias().isEmpty()) {
+			getCmbCategoria().setSelectedIndex(0);
+		}
 	}
 	
 	@PostConstruct
@@ -246,5 +258,13 @@ public class CadastrarFolhaUI extends CadastroUI<Folha> {
 
 	public JFormattedTextField getTxtPrevQuitacao() {
 		return txtPrevQuitacao;
+	}
+
+	public Folha getFolhaPai() {
+		return folhaPai;
+	}
+
+	public void setFolhaPai(Folha folhaPai) {
+		this.folhaPai = folhaPai;
 	}
 }

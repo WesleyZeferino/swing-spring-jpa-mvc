@@ -1,6 +1,7 @@
 package br.com.arq.ui;
 
 import javax.annotation.PostConstruct;
+import javax.swing.JButton;
 import javax.swing.JDialog;
 
 import net.miginfocom.swing.MigLayout;
@@ -18,6 +19,7 @@ public class ListarFolhaUI extends AppUI<Folha> {
 
 	private AppTable<Folha> tabela;
 	private JDialog frame;
+	private JButton btnDetalhar;
 
 	@Override
 	public void iniciarDados() {
@@ -27,6 +29,10 @@ public class ListarFolhaUI extends AppUI<Folha> {
 	@PostConstruct
 	private void init() {
 		gerarTabela();
+		
+		btnDetalhar = new JButton("Detalhar");
+		
+		tabela.getPainelBtns().add(btnDetalhar);
 		
 		frame = new JDialog();
 		frame.getContentPane().setLayout(new MigLayout());
@@ -65,6 +71,10 @@ public class ListarFolhaUI extends AppUI<Folha> {
 	
 	public AppTable<Folha> getTabela() {
 		return tabela;
+	}
+
+	public JButton getBtnDetalhar() {
+		return btnDetalhar;
 	}
 
 }

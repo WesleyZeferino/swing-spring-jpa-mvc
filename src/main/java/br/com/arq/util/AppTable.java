@@ -30,6 +30,7 @@ public class AppTable<T> {
 	private JLabel lbPaginacao;
 	private JButton btnAtualizar;
 	private JButton btnEditar;
+	private JButton btnCancelar;
 
 	public AppTable() {
 		init();
@@ -47,6 +48,7 @@ public class AppTable<T> {
 		btnUltimo = new JButton(">>");
 		btnAtualizar = new JButton("Atualizar");
 		btnEditar = new JButton("Editar");
+		btnCancelar = new JButton("Cancelar");
 		lbPaginacao = new JLabel("(0 de 0)");
 
 		pnlPaginacao.setBorder(new EtchedBorder());
@@ -58,8 +60,13 @@ public class AppTable<T> {
 		pnlPaginacao.add(btnUltimo, "pushx");
 		pnlPaginacao.add(btnAtualizar);
 		pnlPaginacao.add(btnEditar);
+		pnlPaginacao.add(btnCancelar);
 
 		scroll.setViewportView(tabela);
+	}
+	
+	public JPanel getPainelBtns() {
+		return pnlPaginacao;
 	}
 	
 	public T getItemSelecionado() {
@@ -116,5 +123,9 @@ public class AppTable<T> {
 
 	public JButton getBtnEditar() {
 		return btnEditar;
+	}
+
+	public JButton getBtnCancelar() {
+		return btnCancelar;
 	}
 }

@@ -59,7 +59,7 @@ public class Folha extends Entidade {
 	
 	@ManyToOne
 	@JoinColumn(nullable = true)
-	private Folha filho;
+	private Folha pai;
 	
 	@Temporal(TemporalType.DATE)
 	private Date dataQuitacao;
@@ -139,14 +139,6 @@ public class Folha extends Entidade {
 		this.tipoPagamento = tipoPagamento;
 	}
 
-	public Folha getFilho() {
-		return filho;
-	}
-
-	public void setFilho(Folha filho) {
-		this.filho = filho;
-	}
-
 	public Date getDataQuitacao() {
 		return dataQuitacao;
 	}
@@ -177,6 +169,14 @@ public class Folha extends Entidade {
 
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
+	}
+
+	public Folha getPai() {
+		return pai;
+	}
+
+	public void setPai(Folha pai) {
+		this.pai = pai;
 	}
 
 }
