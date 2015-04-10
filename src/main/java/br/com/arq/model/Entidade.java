@@ -19,7 +19,12 @@ public class Entidade extends AbstractPersistable<Integer> {
 
 	@Transient
 	private transient final PropertyChangeSupport property = new PropertyChangeSupport(this);
-
+	
+	@Override
+	public void setId(Integer id) {
+		super.setId(id);
+	}
+	
 	@PrePersist
 	private void prePersist() {
 		status = StatusEntidade.ATIVO;
@@ -33,7 +38,7 @@ public class Entidade extends AbstractPersistable<Integer> {
 		property.removePropertyChangeListener(listener);
 	}
 
-	public void addPropertyChangeListener(final String propertyName, final PropertyChangeListener listener) {
+	/*public void addPropertyChangeListener(final String propertyName, final PropertyChangeListener listener) {
 		property.addPropertyChangeListener(propertyName, listener);
 	}
 
@@ -43,7 +48,7 @@ public class Entidade extends AbstractPersistable<Integer> {
 
 	protected void firePropertyChange(final String propertyName, final Object oldValue, final Object newValue) {
 		property.firePropertyChange(propertyName, oldValue, newValue);
-	}
+	}*/
 
 	public StatusEntidade getStatus() {
 		return status;

@@ -29,6 +29,9 @@ public final class NumberUtil {
 
 	private NumberUtil() {
 		super();
+	}
+	
+	private static void configurar() {
 		FORMATO.setMaximumFractionDigits(2);
 		FORMATO.setMinimumFractionDigits(2);
 	}
@@ -42,6 +45,7 @@ public final class NumberUtil {
 	 * @return
 	 */
 	public static String obterNumeroFormatado(final Number value) {
+		configurar();
 		return Optional.ofNullable(value).map(FORMATO::format).orElse(VALOR_DEFAULT);
 	}
 
@@ -54,6 +58,8 @@ public final class NumberUtil {
 	 * @return
 	 */
 	public static BigDecimal obterNumeroFormatado(final String value) {
+		configurar();
+		
 		Number parse = null;
 		
 		try {

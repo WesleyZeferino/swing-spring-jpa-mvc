@@ -52,7 +52,9 @@ public class PrincipalController {
 		.add(this, "${folhaController.contaSelecionada}", ui.getCmbConta(), "selectedItem")
 		.getBindingGroup().bind();
 		
-		ui.getCmbConta().setSelectedIndex(0);
+		if (!listas.getContas().isEmpty()) {
+			ui.getCmbConta().setSelectedIndex(0);
+		}
 	}
 	
 	private void abrirFrame(JComponent frame) {

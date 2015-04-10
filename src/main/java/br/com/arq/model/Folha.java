@@ -13,6 +13,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -32,6 +33,7 @@ public class Folha extends Entidade {
 	private StatusFolha statusFolha;
 
 	@NotNull
+	@DecimalMin("0.01")
 	@Digits(fraction = 2, integer = 10)
 	private BigDecimal valor;
 

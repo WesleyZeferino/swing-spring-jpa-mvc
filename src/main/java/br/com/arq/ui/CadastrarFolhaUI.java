@@ -60,6 +60,7 @@ public class CadastrarFolhaUI extends CadastroUI<Folha> {
 	private JTextArea txtDescricao;
 	private JFormattedTextField txtQuitacao;
 	private JFormattedTextField txtPrevQuitacao;
+	private JButton btnImportar;
 
 	@Override
 	public void iniciarDados() {
@@ -102,6 +103,20 @@ public class CadastrarFolhaUI extends CadastroUI<Folha> {
 
 		iniciarDados();
 		bind();
+	}
+	
+	protected JPanel getPanelBtns() {
+		btnImportar = new JButton("Importar");
+		
+		JPanel panel = new JPanel(new MigLayout());
+		panel.setBorder(new EtchedBorder());
+		panel.add(getBtnSalvar());
+		panel.add(getBtnLimpar());
+		panel.add(getBtnListar());
+		panel.add(btnImportar, "pushx");
+		panel.add(getBtnSair());
+		
+		return panel;
 	}
 
 	private JPanel getBtnsRecorrencia() {

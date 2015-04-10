@@ -1,5 +1,6 @@
 package br.com.arq.ui;
 
+import java.awt.Container;
 import java.util.Arrays;
 
 import javax.swing.JComboBox;
@@ -45,6 +46,10 @@ public abstract class AppUI<T extends Entidade> {
 		if (component instanceof JInternalFrame) {
 			limparComponentes(((JInternalFrame) component).getContentPane().getComponents());
 		} 
+	}
+	
+	public void limparComponentes(Container container) {
+		limparComponentes(container.getComponents());
 	}
 	
 	public void limparComponentes(final java.awt.Component[] components) {

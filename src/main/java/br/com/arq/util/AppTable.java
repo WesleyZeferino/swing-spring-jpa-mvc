@@ -31,6 +31,7 @@ public class AppTable<T> {
 	private JButton btnAtualizar;
 	private JButton btnEditar;
 	private JButton btnCancelar;
+	private JButton btnExcluir;
 
 	public AppTable() {
 		init();
@@ -49,6 +50,7 @@ public class AppTable<T> {
 		btnAtualizar = new JButton("Atualizar");
 		btnEditar = new JButton("Editar");
 		btnCancelar = new JButton("Cancelar");
+		btnExcluir = new JButton("Excluir");
 		lbPaginacao = new JLabel("(0 de 0)");
 
 		pnlPaginacao.setBorder(new EtchedBorder());
@@ -60,6 +62,7 @@ public class AppTable<T> {
 		pnlPaginacao.add(btnUltimo, "pushx");
 		pnlPaginacao.add(btnAtualizar);
 		pnlPaginacao.add(btnEditar);
+		pnlPaginacao.add(btnExcluir);
 		pnlPaginacao.add(btnCancelar);
 
 		scroll.setViewportView(tabela);
@@ -127,5 +130,9 @@ public class AppTable<T> {
 
 	public JButton getBtnCancelar() {
 		return btnCancelar;
+	}
+
+	public JButton getBtnExcluir() {
+		return btnExcluir;
 	}
 }
