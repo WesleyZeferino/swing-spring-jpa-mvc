@@ -23,13 +23,13 @@ public class IntegerConverter extends Converter<Integer, String> {
 	@Override
 	public Integer convertReverse(final String numero) {
 		Integer valor = null;
-		
+
 		try {
 			valor = Integer.valueOf(numero);
-		} catch (NumberFormatException e) {
+		} catch (final NumberFormatException e) {
 			Logger.getLogger(getClass().getName()).log(Level.WARNING, "Erro ao tentar converter String em Integer");
 		}
-		
+
 		return Optional.ofNullable(valor).orElse(VALOR_INT_DEFAULT);
 	}
 

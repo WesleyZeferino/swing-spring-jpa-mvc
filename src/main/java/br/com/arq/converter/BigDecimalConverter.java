@@ -17,7 +17,7 @@ public class BigDecimalConverter extends Converter<BigDecimal, String> {
 		return NumberUtil.obterNumeroFormatado(numero);
 	}
 
-	@Override 
+	@Override
 	public BigDecimal convertReverse(final String numero) {
 		return NumberUtil.obterNumeroFormatado(numero);
 	}

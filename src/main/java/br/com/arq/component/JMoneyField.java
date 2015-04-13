@@ -26,11 +26,12 @@ public class JMoneyField extends JFormattedTextField {
 	 * Creates a new instance of JMoneyField
 	 */
 	public JMoneyField() {
-		this.setHorizontalAlignment(SwingConstants.LEFT);
-		this.setDocument(new MoneyFieldDocument());
-		this.addFocusListener(new MoneyFieldFocusListener());
-		this.setText("0,00");
-		this.addCaretListener(new CaretListener() {
+		setHorizontalAlignment(SwingConstants.LEFT);
+		setDocument(new MoneyFieldDocument());
+		addFocusListener(new MoneyFieldFocusListener());
+		setText("0,00");
+		addCaretListener(new CaretListener() {
+			@Override
 			public void caretUpdate(final CaretEvent e) {
 				if (e.getDot() != getText().length()) {
 					getCaret().setDot(getText().length());
@@ -55,8 +56,7 @@ public class JMoneyField extends JFormattedTextField {
 		private static final long serialVersionUID = -3802846632709128803L;
 
 		@Override
-		public void insertString(final int offs, final String str,
-				final AttributeSet a) throws BadLocationException {
+		public void insertString(final int offs, final String str, final AttributeSet a) throws BadLocationException {
 			final String original = getText(0, getLength());
 
 			// Permite apenas digitar até 16 caracteres (9.999.999.999,99)
@@ -108,17 +108,14 @@ public class JMoneyField extends JFormattedTextField {
 		}
 
 		@Override
-		public void remove(final int offs, final int len)
-				throws BadLocationException {
+		public void remove(final int offs, final int len) throws BadLocationException {
 			if (len == getLength()) {
 				super.remove(0, len);
 				if (offs != -1) {
 					insertString(0, "", nullAttribute);
 				}
 			} else {
-				final String original = getText(0, getLength()).substring(0,
-						offs)
-						+ getText(0, getLength()).substring(offs + len);
+				final String original = getText(0, getLength()).substring(0, offs) + getText(0, getLength()).substring(offs + len);
 				super.remove(0, getLength());
 				insertString(0, original, null);
 			}

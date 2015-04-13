@@ -67,13 +67,24 @@ public class AppTable<T> {
 
 		scroll.setViewportView(tabela);
 	}
-	
+
 	public JPanel getPainelBtns() {
 		return pnlPaginacao;
 	}
-	
+
 	public T getItemSelecionado() {
 		return dados.get(tabela.getSelectedRow());
+	}
+
+	public List<T> getItensSelecionados() {
+		final List<T> itens = new ArrayList<T>();
+		final int[] rows = tabela.getSelectedRows();
+
+		for (final int row : rows) {
+			itens.add(dados.get(row));
+		}
+
+		return itens;
 	}
 
 	public ColumnBinding bind(final BindingUtil bind) {

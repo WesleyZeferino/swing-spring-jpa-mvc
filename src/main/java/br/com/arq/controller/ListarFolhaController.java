@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import br.com.arq.converter.BigDecimalConverter;
 import br.com.arq.converter.DateConverter;
 import br.com.arq.dao.FolhaDAO;
+import br.com.arq.model.ContaBancaria;
 import br.com.arq.model.Folha;
 import br.com.arq.ui.CadastrarFolhaUI;
 import br.com.arq.ui.ListarFolhaUI;
@@ -33,6 +34,8 @@ public class ListarFolhaController extends PaginacaoController<Folha> {
 	@Autowired
 	private CadastrarFolhaController cadController;
 
+	private ContaBancaria contaSelecionada;
+
 	@PostConstruct
 	private void init() {
 		final AppTable<Folha> tabela = ui.getTabela();
@@ -47,8 +50,7 @@ public class ListarFolhaController extends PaginacaoController<Folha> {
 		});
 
 		tabela.getBtnExcluir().addActionListener(e -> {
-			ui.setEntidade(tabela.getItemSelecionado());
-			excluir();
+			excluir(tabela.getItensSelecionados());
 			atualizar();
 		});
 
@@ -152,6 +154,14 @@ public class ListarFolhaController extends PaginacaoController<Folha> {
 	@Override
 	public FolhaDAO getDao() {
 		return dao;
+	}
+
+	public ContaBancaria getContaSelecionada() {
+		return contaSelecionada;
+	}
+
+	public void setContaSelecionada(final ContaBancaria contaSelecionada) {
+		this.contaSelecionada = contaSelecionada;
 	}
 
 }

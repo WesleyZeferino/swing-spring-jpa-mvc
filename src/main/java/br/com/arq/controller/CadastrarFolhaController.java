@@ -38,13 +38,16 @@ public class CadastrarFolhaController extends AppController<Folha> {
 	@Autowired
 	private CalcularRecorrencia calcRecorrencia;
 
+	@Autowired
+	private ImportarArquivoOfxController ofxController;
+
 	private ContaBancaria contaSelecionada;
 
 	@PostConstruct
 	private void init() {
 		ui.getBtnSalvar().addActionListener(e -> {
 			ui.getFolha().setConta(contaSelecionada);
-			
+
 			if (ObjetoUtil.isReferencia(ui.getEntidade().getId())) {
 				salvar(ui);
 				ui.resetarCombos();
@@ -63,7 +66,7 @@ public class CadastrarFolhaController extends AppController<Folha> {
 			listController.atualizar();
 			listController.getUi().show();
 		});
-		
+
 		ui.getBtnLimpar().addActionListener(e -> {
 			ui.iniciarDados();
 			ui.limparComponentes();
@@ -73,7 +76,9 @@ public class CadastrarFolhaController extends AppController<Folha> {
 		ui.getBtnSalvarRec().addActionListener(e -> salvarRec());
 
 		ui.getBtnCancelarRec().addActionListener(e -> ui.getDialogRecorrencia().dispose());
-		
+
+		ui.getBtnImportar().addActionListener(e -> ofxController.importarDadosArquivoOfx(ui.getFrame()));
+
 		ui.resetarCombos();
 	}
 
@@ -107,6 +112,7 @@ public class CadastrarFolhaController extends AppController<Folha> {
 
 	}
 
+	@Override
 	public CadastrarFolhaUI getUi() {
 		return ui;
 	}
@@ -122,6 +128,10 @@ public class CadastrarFolhaController extends AppController<Folha> {
 	@Override
 	public FolhaDAO getDao() {
 		return dao;
+	}
+
+	public ListarFolhaController getListController() {
+		return listController;
 	}
 
 }

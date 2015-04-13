@@ -36,10 +36,10 @@ public class PrincipalUI extends JFrame {
 		setTitle("Gerenciador Financeiro");
 		getContentPane().setLayout(new MigLayout());
 		gerarBarraMenus();
-		
+
 		desktop = new JDesktopPane();
 		desktop.setBackground(Color.WHITE);
-		
+
 		cmbConta = new JComboBox<ContaBancaria>();
 
 		final JPanel pnlAtralho = new JPanel(new MigLayout());
@@ -54,21 +54,21 @@ public class PrincipalUI extends JFrame {
 	}
 
 	private void gerarBarraMenus() {
-		JMenuBar menuBar = new JMenuBar();
+		final JMenuBar menuBar = new JMenuBar();
 		menuCadFolha = new JMenuItem("Folha");
 		menuCadConta = new JMenuItem("Conta");
 		menuCadCategoria = new JMenuItem("Categoria");
-		
-		JMenu menuCad = new JMenu("Cadastros");
+
+		final JMenu menuCad = new JMenu("Cadastros");
 		menuCad.add(menuCadFolha);
 		menuCad.add(menuCadConta);
 		menuCad.add(menuCadCategoria);
-		
+
 		menuBar.add(menuCad);
-		
+
 		super.setJMenuBar(menuBar);
 	}
-	
+
 	public JMenuItem getMenuCadConta() {
 		return menuCadConta;
 	}
@@ -76,15 +76,15 @@ public class PrincipalUI extends JFrame {
 	public JMenuItem getMenuCadFolha() {
 		return menuCadFolha;
 	}
-	
+
 	public JDesktopPane getDesktop() {
 		return desktop;
 	}
-	
+
 	public JComboBox<ContaBancaria> getCmbConta() {
 		return cmbConta;
 	}
-	
+
 	public JMenuItem getMenuCadCategoria() {
 		return menuCadCategoria;
 	}

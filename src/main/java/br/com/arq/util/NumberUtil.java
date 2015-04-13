@@ -30,7 +30,7 @@ public final class NumberUtil {
 	private NumberUtil() {
 		super();
 	}
-	
+
 	private static void configurar() {
 		FORMATO.setMaximumFractionDigits(2);
 		FORMATO.setMinimumFractionDigits(2);
@@ -59,17 +59,17 @@ public final class NumberUtil {
 	 */
 	public static BigDecimal obterNumeroFormatado(final String value) {
 		configurar();
-		
+
 		Number parse = null;
-		
+
 		try {
 			parse = FORMATO.parse(value);
 		} catch (final ParseException ex) {
 			Logger.getLogger(BigDecimalConverter.class.getName()).log(Level.WARNING, "Erro ao tentar converter String em BigDecimal");
 		}
-		
-		BigDecimal valor = Optional.ofNullable(parse).map(Number::doubleValue).map(BigDecimal::valueOf).orElse(new BigDecimal(VALOR_INICIAL));
-		
+
+		final BigDecimal valor = Optional.ofNullable(parse).map(Number::doubleValue).map(BigDecimal::valueOf).orElse(new BigDecimal(VALOR_INICIAL));
+
 		return valor.setScale(DECIMAL_DIGITS, RoundingMode.CEILING);
 	}
 }

@@ -35,6 +35,7 @@ public class CadastrarClienteController extends AppController<Cliente> {
 		return dao;
 	}
 
+	@Override
 	public CadastrarClienteUI getUi() {
 		return ui;
 	}

@@ -15,7 +15,7 @@ import br.com.arq.util.AppTable;
 @Component
 public abstract class PaginacaoController<T extends Entidade> extends AppController<T> {
 
-	private static final int MAX_RESULTADOS = 15;
+	protected static final int MAX_RESULTADOS = 15;
 	private static final int PAGINA_INICIAL = 0;
 
 	private Page<T> pagina;
@@ -39,14 +39,14 @@ public abstract class PaginacaoController<T extends Entidade> extends AppControl
 	}
 
 	private void irProximoRegistro() {
-		if (pagina.hasNextPage()) {
+		if (pagina.hasNext()) {
 			final int prox = pagina.getNumber() + 1;
 			getTabela().setDados(buscarDados(prox));
 		}
 	}
 
 	private void irRegistroAnterior() {
-		if (pagina.hasPreviousPage()) {
+		if (pagina.hasPrevious()) {
 			final int ant = pagina.getNumber() - 1;
 			getTabela().setDados(buscarDados(ant));
 		}
@@ -57,17 +57,21 @@ public abstract class PaginacaoController<T extends Entidade> extends AppControl
 	}
 
 	private List<T> buscarDados(final int page) {
-		pagina = getDao().findAll(new PageRequest(page, MAX_RESULTADOS));
+		pagina = obterDados(page);
 		validarBtns();
 		getTabela().getLbPaginacao().setText(String.format("(%s de %s)", pagina.getNumber() + 1, pagina.getTotalPages()));
 		return pagina.getContent();
 	}
 
+	protected Page<T> obterDados(final int page) {
+		return getDao().findAll(new PageRequest(page, MAX_RESULTADOS));
+	}
+
 	private void validarBtns() {
-		getTabela().getBtnPrimeiro().setEnabled(pagina.hasPreviousPage());
-		getTabela().getBtnAnterior().setEnabled(pagina.hasPreviousPage());
-		getTabela().getBtnProximo().setEnabled(pagina.hasNextPage());
-		getTabela().getBtnUltimo().setEnabled(pagina.hasNextPage());
+		getTabela().getBtnPrimeiro().setEnabled(pagina.hasPrevious());
+		getTabela().getBtnAnterior().setEnabled(pagina.hasPrevious());
+		getTabela().getBtnProximo().setEnabled(pagina.hasNext());
+		getTabela().getBtnUltimo().setEnabled(pagina.hasNext());
 	}
 
 	public abstract AppTable<T> getTabela();

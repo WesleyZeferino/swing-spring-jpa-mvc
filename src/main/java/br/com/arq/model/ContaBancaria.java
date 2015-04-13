@@ -14,10 +14,10 @@ public class ContaBancaria extends Entidade {
 	@NotNull
 	@Size(min = 5, max = 255)
 	private String descricao;
-	
+
 	@Override
 	public String toString() {
-		return this.descricao;
+		return descricao;
 	}
 
 	public String getDescricao() {

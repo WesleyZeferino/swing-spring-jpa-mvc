@@ -2,6 +2,7 @@ package br.com.arq.ui;
 
 import java.awt.Container;
 import java.util.Arrays;
+import java.util.logging.Logger;
 
 import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
@@ -24,13 +25,15 @@ public abstract class AppUI<T extends Entidade> {
 
 	private final BindingUtil binding;
 
+	protected static final Logger LOG = Logger.getLogger(AppUI.class.getName());
+
 	@Autowired
 	private Validador<T> validador;
 
 	public AppUI() {
 		binding = BindingUtil.create(new BindingGroup());
 	}
-	
+
 	public abstract T getEntidade();
 
 	public abstract void iniciarDados();
@@ -45,13 +48,13 @@ public abstract class AppUI<T extends Entidade> {
 		final java.awt.Component component = getFrame();
 		if (component instanceof JInternalFrame) {
 			limparComponentes(((JInternalFrame) component).getContentPane().getComponents());
-		} 
+		}
 	}
-	
-	public void limparComponentes(Container container) {
+
+	public void limparComponentes(final Container container) {
 		limparComponentes(container.getComponents());
 	}
-	
+
 	public void limparComponentes(final java.awt.Component[] components) {
 		Arrays.asList(components).forEach(comp -> {
 			if (comp instanceof JPanel) {
@@ -83,7 +86,7 @@ public abstract class AppUI<T extends Entidade> {
 	}
 
 	protected JPanel createJPanel() {
-		JPanel pnl = new JPanel(new MigLayout());
+		final JPanel pnl = new JPanel(new MigLayout());
 		pnl.setBorder(new EtchedBorder());
 		return pnl;
 	}

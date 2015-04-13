@@ -28,9 +28,9 @@ public class Validador<T extends Entidade> {
 				}
 			}
 		}
-		
-		String mensagem = sb.toString();
-		
+
+		final String mensagem = sb.toString();
+
 		if (!mensagem.isEmpty()) {
 			throw new ValidacaoException(mensagem);
 		}

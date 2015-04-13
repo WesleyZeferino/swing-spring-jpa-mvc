@@ -15,13 +15,13 @@ public class CadastrarCategoriaController extends AppController<Categoria> {
 
 	@Autowired
 	private CategoriaDAO dao;
-	
+
 	@Autowired
 	private CadastrarCategoriaUI ui;
-	
+
 	@Autowired
 	private ListasUteis listas;
-	
+
 	@PostConstruct
 	private void init() {
 		ui.getBtnSalvar().addActionListener(e -> {
@@ -29,11 +29,13 @@ public class CadastrarCategoriaController extends AppController<Categoria> {
 			listas.setCategorias(dao.findAll());
 		});
 	}
-	
+
+	@Override
 	public CadastrarCategoriaUI getUi() {
 		return ui;
 	}
-	
+
+	@Override
 	public CategoriaDAO getDao() {
 		return dao;
 	}

@@ -15,15 +15,15 @@ import br.com.arq.model.ContaBancaria;
 public class CadastrarContaUI extends CadastroUI<ContaBancaria> {
 
 	private static final String TITULO_FRAME = "Cadastro de Conta";
-	
+
 	private ContaBancaria entidade;
 	private JInternalFrame frame;
-	
+
 	@Override
 	public void iniciarDados() {
 		entidade = new ContaBancaria();
 	}
-	
+
 	@PostConstruct
 	private void init() {
 		frame = new JInternalFrame(TITULO_FRAME);
@@ -32,33 +32,34 @@ public class CadastrarContaUI extends CadastroUI<ContaBancaria> {
 		frame.add(getPanelCadastro(), "wrap, growx, push");
 		frame.add(getPanelBtns(), "growx, push");
 		frame.pack();
-		
+
 		iniciarDados();
 		bind();
 	}
 
 	private JPanel getPanelCadastro() {
-		JTextField txtDescricao = new JTextField(20);
-		
+		final JTextField txtDescricao = new JTextField(20);
+
 		getBinding().add(this, "${entidade.descricao}", txtDescricao);
-		
-		JPanel pnl = createJPanel();
+
+		final JPanel pnl = createJPanel();
 		pnl.add(new JLabel("Descrição:"));
 		pnl.add(txtDescricao);
-		
+
 		return pnl;
 	}
-	
+
 	@Override
 	public Component getFrame() {
 		return frame;
 	}
 
+	@Override
 	public ContaBancaria getEntidade() {
 		return entidade;
 	}
 
-	public void setEntidade(ContaBancaria entidade) {
+	public void setEntidade(final ContaBancaria entidade) {
 		this.entidade = entidade;
 	}
 }

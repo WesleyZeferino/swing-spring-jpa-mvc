@@ -10,14 +10,14 @@ import javax.validation.constraints.Size;
 public class Categoria extends Entidade {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@NotNull
 	@Size(min = 5, max = 255)
 	private String descricao;
-	
+
 	@Override
 	public String toString() {
-		return this.descricao;
+		return descricao;
 	}
 
 	public String getDescricao() {

@@ -15,13 +15,13 @@ public class CadastrarContaController extends AppController<ContaBancaria> {
 
 	@Autowired
 	private ContaBancariaDAO dao;
-	
+
 	@Autowired
 	private CadastrarContaUI ui;
-	
+
 	@Autowired
 	private ListasUteis listas;
-	
+
 	@PostConstruct
 	private void init() {
 		ui.getBtnSalvar().addActionListener(e -> {
@@ -29,11 +29,13 @@ public class CadastrarContaController extends AppController<ContaBancaria> {
 			listas.setContas(dao.findAll());
 		});
 	}
-	
+
+	@Override
 	public CadastrarContaUI getUi() {
 		return ui;
 	}
-	
+
+	@Override
 	public ContaBancariaDAO getDao() {
 		return dao;
 	}

@@ -41,37 +41,37 @@ public class Folha extends Entidade {
 	@ManyToOne
 	@JoinColumn
 	private ContaBancaria conta;
-	
+
 	@NotNull
 	@ManyToOne
 	@JoinColumn
 	private Categoria categoria;
-	
+
 	@Size(max = 255)
 	private String descricao;
-	
+
 	@Column
 	private int parcela;
-	
+
 	@Column
 	private int totalParcela;
-	
+
 	@Enumerated(EnumType.ORDINAL)
 	private TipoPagamento tipoPagamento;
-	
+
 	@ManyToOne
 	@JoinColumn(nullable = true)
 	private Folha pai;
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date dataQuitacao;
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date dataPrevistaQuitacao;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataLancamento;
-	
+
 	@PrePersist
 	private void preSalvar() {
 		setDataLancamento(new Date());
@@ -105,7 +105,7 @@ public class Folha extends Entidade {
 		return valor;
 	}
 
-	public void setValor(BigDecimal valor) {
+	public void setValor(final BigDecimal valor) {
 		this.valor = valor;
 	}
 
@@ -113,7 +113,7 @@ public class Folha extends Entidade {
 		return conta;
 	}
 
-	public void setConta(ContaBancaria conta) {
+	public void setConta(final ContaBancaria conta) {
 		this.conta = conta;
 	}
 
@@ -121,7 +121,7 @@ public class Folha extends Entidade {
 		return parcela;
 	}
 
-	public void setParcela(int parcela) {
+	public void setParcela(final int parcela) {
 		this.parcela = parcela;
 	}
 
@@ -129,7 +129,7 @@ public class Folha extends Entidade {
 		return totalParcela;
 	}
 
-	public void setTotalParcela(int totalParcela) {
+	public void setTotalParcela(final int totalParcela) {
 		this.totalParcela = totalParcela;
 	}
 
@@ -137,7 +137,7 @@ public class Folha extends Entidade {
 		return tipoPagamento;
 	}
 
-	public void setTipoPagamento(TipoPagamento tipoPagamento) {
+	public void setTipoPagamento(final TipoPagamento tipoPagamento) {
 		this.tipoPagamento = tipoPagamento;
 	}
 
@@ -145,7 +145,7 @@ public class Folha extends Entidade {
 		return dataQuitacao;
 	}
 
-	public void setDataQuitacao(Date dataQuitacao) {
+	public void setDataQuitacao(final Date dataQuitacao) {
 		this.dataQuitacao = dataQuitacao;
 	}
 
@@ -153,7 +153,7 @@ public class Folha extends Entidade {
 		return dataPrevistaQuitacao;
 	}
 
-	public void setDataPrevistaQuitacao(Date dataPrevistaQuitacao) {
+	public void setDataPrevistaQuitacao(final Date dataPrevistaQuitacao) {
 		this.dataPrevistaQuitacao = dataPrevistaQuitacao;
 	}
 
@@ -161,7 +161,7 @@ public class Folha extends Entidade {
 		return dataLancamento;
 	}
 
-	public void setDataLancamento(Date dataLancamento) {
+	public void setDataLancamento(final Date dataLancamento) {
 		this.dataLancamento = dataLancamento;
 	}
 
@@ -169,7 +169,7 @@ public class Folha extends Entidade {
 		return categoria;
 	}
 
-	public void setCategoria(Categoria categoria) {
+	public void setCategoria(final Categoria categoria) {
 		this.categoria = categoria;
 	}
 
@@ -177,7 +177,7 @@ public class Folha extends Entidade {
 		return pai;
 	}
 
-	public void setPai(Folha pai) {
+	public void setPai(final Folha pai) {
 		this.pai = pai;
 	}
 

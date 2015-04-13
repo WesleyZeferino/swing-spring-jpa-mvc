@@ -15,7 +15,7 @@ import br.com.arq.model.Categoria;
 public class CadastrarCategoriaUI extends CadastroUI<Categoria> {
 
 	private static final String TITULO_FRAME = "Cadastro de Categoria";
-	
+
 	private Categoria entidade;
 	private JInternalFrame frame;
 
@@ -23,7 +23,7 @@ public class CadastrarCategoriaUI extends CadastroUI<Categoria> {
 	public void iniciarDados() {
 		entidade = new Categoria();
 	}
-	
+
 	@PostConstruct
 	private void init() {
 		frame = new JInternalFrame(TITULO_FRAME);
@@ -32,20 +32,20 @@ public class CadastrarCategoriaUI extends CadastroUI<Categoria> {
 		frame.add(getPanelCadastro(), "wrap, grow, push");
 		frame.add(getPanelBtns(), ", grow, push");
 		frame.pack();
-		
+
 		iniciarDados();
 		bind();
 	}
 
 	private Component getPanelCadastro() {
-		JTextField txtDescricao = new JTextField(20);
-		
+		final JTextField txtDescricao = new JTextField(20);
+
 		getBinding().add(this, "${entidade.descricao}", txtDescricao);
-		
-		JPanel pnl = createJPanel();
+
+		final JPanel pnl = createJPanel();
 		pnl.add(new JLabel("Descrição:"));
 		pnl.add(txtDescricao);
-		
+
 		return pnl;
 	}
 
@@ -53,13 +53,13 @@ public class CadastrarCategoriaUI extends CadastroUI<Categoria> {
 	public Component getFrame() {
 		return frame;
 	}
-	
+
 	@Override
 	public Categoria getEntidade() {
 		return entidade;
 	}
-	
-	public void setEntidade(Categoria entidade) {
+
+	public void setEntidade(final Categoria entidade) {
 		this.entidade = entidade;
 	}
 }

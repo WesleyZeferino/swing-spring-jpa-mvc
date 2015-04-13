@@ -11,9 +11,10 @@ public class ObjetoUtil {
 	 * memória.
 	 *
 	 * @author Wesley Luiz
-	 * @param valor é a variável à ser validada.
+	 * @param valor
+	 *            é a variável à ser validada.
 	 * @return Retorna <i>true</i> se possuir referência ou <i>false</i> caso
-	 * não tenha.
+	 *         não tenha.
 	 */
 	public static Boolean isReferencia(final Object valor) {
 		return valor != null;
@@ -24,9 +25,10 @@ public class ObjetoUtil {
 	 * memória.
 	 *
 	 * @author Wesley Luiz
-	 * @param valores - Recebe a(s) variável(eis) à ser(em) validada(s).
+	 * @param valores
+	 *            - Recebe a(s) variável(eis) à ser(em) validada(s).
 	 * @return Retorna <i>true</i> se possuir referência ou <i>false</i> caso
-	 * não tenha.
+	 *         não tenha.
 	 */
 	public static Boolean isReferencia(final Object... valores) {
 		for (final Object obj : valores) {
@@ -41,9 +43,10 @@ public class ObjetoUtil {
 	 * Método responsável por validar uma <i>String</i> caso seja vazia ou não.
 	 *
 	 * @author Wesley Luiz
-	 * @param valor à ser validado.
+	 * @param valor
+	 *            à ser validado.
 	 * @return Retorna um <i>boolean true</i> caso a variável seja vazia ou
-	 * <i>false</i> caso não seja.
+	 *         <i>false</i> caso não seja.
 	 */
 	public static Boolean isVazio(final String valor) {
 		return isReferencia(valor) ? valor.trim().isEmpty() : true;
@@ -54,9 +57,10 @@ public class ObjetoUtil {
 	 * vazias ou não.
 	 *
 	 * @author Wesley Luiz
-	 * @param valor à ser validado.
+	 * @param valor
+	 *            à ser validado.
 	 * @return Retorna um <i>boolean true</i> caso a variável seja vazia ou
-	 * <i>false</i> caso não seja.
+	 *         <i>false</i> caso não seja.
 	 */
 	public static Boolean isVazio(final String... valor) {
 		for (final String s : valor) {

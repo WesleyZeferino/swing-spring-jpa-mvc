@@ -18,7 +18,7 @@ public class DoubleConverter extends Converter<Double, String> {
 
 	@Override
 	public Double convertReverse(final String numero) {
-		BigDecimal valor = NumberUtil.obterNumeroFormatado(numero);
+		final BigDecimal valor = NumberUtil.obterNumeroFormatado(numero);
 		return Optional.ofNullable(valor).map(BigDecimal::doubleValue).orElse(VALOR_DEFAULT);
 	}
 

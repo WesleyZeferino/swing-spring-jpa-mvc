@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.text.MaskFormatter;
 
@@ -39,10 +40,10 @@ public class CadastrarFolhaUI extends CadastroUI<Folha> {
 
 	private static final String TITULO_FRAME_RECORRENCIA = "Recorrência";
 	private static final String TITULO_FRAME = "Cadastro de Folha";
-	
+
 	@Autowired
 	private ListasUteis listas;
-	
+
 	private JInternalFrame frame;
 	private JDialog dialogRecorrencia;
 	private JPanel panelCadastro;
@@ -74,19 +75,19 @@ public class CadastrarFolhaUI extends CadastroUI<Folha> {
 		getCmbStatus().setSelectedIndex(0);
 		getCmbTipoFolha().setSelectedIndex(0);
 		getCmbTipoPagamento().setSelectedIndex(0);
-		
+
 		if (!listas.getCategorias().isEmpty()) {
 			getCmbCategoria().setSelectedIndex(0);
 		}
 	}
-	
+
 	@PostConstruct
 	private void init() {
 		gerarPainelCadastro();
-		
+
 		dialogRecorrencia = new JDialog();
 		dialogRecorrencia.setTitle(TITULO_FRAME_RECORRENCIA);
-		dialogRecorrencia.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		dialogRecorrencia.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		dialogRecorrencia.setModal(true);
 		dialogRecorrencia.getContentPane().setLayout(new MigLayout());
 		dialogRecorrencia.add(getPainelRecorrencia(), "wrap");
@@ -104,47 +105,48 @@ public class CadastrarFolhaUI extends CadastroUI<Folha> {
 		iniciarDados();
 		bind();
 	}
-	
+
+	@Override
 	protected JPanel getPanelBtns() {
 		btnImportar = new JButton("Importar");
-		
-		JPanel panel = new JPanel(new MigLayout());
+
+		final JPanel panel = new JPanel(new MigLayout());
 		panel.setBorder(new EtchedBorder());
 		panel.add(getBtnSalvar());
 		panel.add(getBtnLimpar());
 		panel.add(getBtnListar());
 		panel.add(btnImportar, "pushx");
 		panel.add(getBtnSair());
-		
+
 		return panel;
 	}
 
 	private JPanel getBtnsRecorrencia() {
 		btnSalvarRec = new JButton("Salvar");
 		btnCancelarRec = new JButton("Cancelar");
-		
-		JPanel panel = createJPanel();
+
+		final JPanel panel = createJPanel();
 		panel.add(btnSalvarRec);
 		panel.add(btnCancelarRec);
-		
+
 		return panel;
 	}
 
 	private JPanel getPainelRecorrencia() {
-		JComboBox<Frequencia> cmbFreq = new JComboBox<Frequencia>();
-		JTextField txtMaximo = new JTextField(20);
-		
+		final JComboBox<Frequencia> cmbFreq = new JComboBox<Frequencia>();
+		final JTextField txtMaximo = new JTextField(20);
+
 		getBinding().addJComboBoxBinding(Arrays.asList(Frequencia.values()), cmbFreq);
 		getBinding().add(this, "${frequencia}", cmbFreq, "selectedItem");
 		getBinding().add(this, "${repeticaoFreq}", txtMaximo, new IntegerConverter());
-		
-		JPanel panel = createJPanel();
+
+		final JPanel panel = createJPanel();
 		panel.add(new JLabel("Insira a frequência com que essa folha será cadastrada."), "wrap, spanx2");
 		panel.add(new JLabel("Recorrência:"));
 		panel.add(cmbFreq, "wrap, grow");
 		panel.add(new JLabel("Limite:"));
 		panel.add(txtMaximo);
-		
+
 		return panel;
 	}
 
@@ -199,14 +201,14 @@ public class CadastrarFolhaUI extends CadastroUI<Folha> {
 
 	@Override
 	public Folha getEntidade() {
-		return this.folha;
+		return folha;
 	}
-	
+
 	@Override
 	public java.awt.Component getFrame() {
 		return frame;
 	}
-	
+
 	public Folha getFolha() {
 		return folha;
 	}
@@ -219,11 +221,11 @@ public class CadastrarFolhaUI extends CadastroUI<Folha> {
 		return dialogRecorrencia;
 	}
 
-	public void setFrequencia(Frequencia frequencia) {
+	public void setFrequencia(final Frequencia frequencia) {
 		this.frequencia = frequencia;
 	}
 
-	public void setRepeticaoFreq(Integer repeticaoFreq) {
+	public void setRepeticaoFreq(final Integer repeticaoFreq) {
 		this.repeticaoFreq = repeticaoFreq;
 	}
 
@@ -242,7 +244,7 @@ public class CadastrarFolhaUI extends CadastroUI<Folha> {
 	public JButton getBtnCancelarRec() {
 		return btnCancelarRec;
 	}
-	
+
 	public JComboBox<TipoFolha> getCmbTipoFolha() {
 		return cmbTipoFolha;
 	}
@@ -279,7 +281,11 @@ public class CadastrarFolhaUI extends CadastroUI<Folha> {
 		return folhaPai;
 	}
 
-	public void setFolhaPai(Folha folhaPai) {
+	public void setFolhaPai(final Folha folhaPai) {
 		this.folhaPai = folhaPai;
+	}
+
+	public JButton getBtnImportar() {
+		return btnImportar;
 	}
 }

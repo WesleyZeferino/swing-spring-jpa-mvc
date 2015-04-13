@@ -18,11 +18,11 @@ public class ListarClienteUI extends AppUI<Cliente> {
 	private JFrame frame;
 	private JButton btnAtualizar;
 	private AppTable<Cliente> tabela;
-	
+
 	@PostConstruct
 	private void init() {
 		btnAtualizar = new JButton("Atualizar");
-		
+
 		frame = new JFrame();
 		frame.getContentPane().setLayout(new MigLayout());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -35,7 +35,7 @@ public class ListarClienteUI extends AppUI<Cliente> {
 
 	private JComponent getTabela() {
 		tabela = new AppTable<Cliente>();
-		
+
 		final ColumnBinding clBinding = tabela.bind(getBinding());
 		clBinding.addColumnBinding(0, "${nome}", "Nome");
 		clBinding.addColumnBinding(1, "${cpf}", "CPF");

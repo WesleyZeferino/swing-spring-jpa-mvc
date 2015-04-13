@@ -1,6 +1,7 @@
 package br.com.arq.controller;
 
 import java.awt.Component;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
@@ -16,37 +17,57 @@ public abstract class AppController<T extends Entidade> {
 
 	private static final String TITULO_EXCLUSAO = "Exclusão";
 	private static final String TITULO_ERRO = "Erro";
-	
+
 	protected static final String MSG_DEPENDENCIA = "O item não pode ser excluído (Existe dependência)!";
-	protected static final String MSG_EXCLUIR_SUCESSO = "O item foi excluído com sucesso!";
-	protected static final String MSG_EXCLUIR = "Quer excluir este item?";
+	protected static final String MSG_EXCLUIR_SUCESSO = "O(s) item(ns) foi(ram) excluído(s) com sucesso!";
+	protected static final String MSG_EXCLUIR = "Quer excluir este(s) item(ns)?";
 	protected static final String MSG_SALVAR_SUCESSO = "Dados salvos com sucesso!";
 	protected static final Logger LOG = Logger.getLogger(AppController.class.getName());
 
 	protected abstract AppDAO<T> getDao();
+
 	protected abstract AppUI<T> getUi();
-	
-	public void salvar() {
-		salvar(getUi());
-	}
-	
+
 	public void excluir() {
-		excluir(getUi());
+		excluir(getUi().getFrame(), getUi().getEntidade());
 	}
-	
-	public void excluir(final AppUI<T> ui) {
-		Component frame = ui.getFrame();
-		
-		int result = JOptionPane.showConfirmDialog(frame, MSG_EXCLUIR, TITULO_EXCLUSAO, JOptionPane.YES_NO_OPTION);
-		
+
+	public void excluir(final T entidade) {
+		excluir(getUi().getFrame(), entidade);
+	}
+
+	public void excluir(final List<T> entidades) {
+		final Component frame = getUi().getFrame();
+		final int result = JOptionPane.showConfirmDialog(frame, MSG_EXCLUIR, TITULO_EXCLUSAO, JOptionPane.YES_NO_OPTION);
+
+		if (result == JOptionPane.YES_OPTION) {
+			entidades.forEach(it -> {
+				try {
+					getDao().delete(it);
+				} catch (final DataIntegrityViolationException ex) {
+				}
+			});
+
+			JOptionPane.showMessageDialog(frame, MSG_EXCLUIR_SUCESSO);
+		}
+	}
+
+	public void excluir(final Component frame, final T entidade) {
+
+		final int result = JOptionPane.showConfirmDialog(frame, MSG_EXCLUIR, TITULO_EXCLUSAO, JOptionPane.YES_NO_OPTION);
+
 		if (result == JOptionPane.YES_OPTION) {
 			try {
-				getDao().delete(ui.getEntidade().getId());
+				getDao().delete(entidade);
 				JOptionPane.showMessageDialog(frame, MSG_EXCLUIR_SUCESSO);
-			} catch (DataIntegrityViolationException ex) {
+			} catch (final DataIntegrityViolationException ex) {
 				exibirMensagemErro(MSG_DEPENDENCIA, frame);
 			}
 		}
+	}
+
+	public void salvar() {
+		salvar(getUi());
 	}
 
 	public void salvar(final AppUI<T> ui) {
@@ -57,7 +78,7 @@ public abstract class AppController<T extends Entidade> {
 			ui.iniciarDados();
 			ui.limparComponentes();
 			exibirMensagemSalvarSucesso(comp);
-		} catch (ValidacaoException ex) {
+		} catch (final ValidacaoException ex) {
 			exibirMensagemErro(ex.getMessage(), comp);
 		}
 	}

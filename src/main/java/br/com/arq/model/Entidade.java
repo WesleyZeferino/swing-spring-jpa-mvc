@@ -5,11 +5,13 @@ import java.beans.PropertyChangeSupport;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.Transient;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
+@MappedSuperclass
 public class Entidade extends AbstractPersistable<Integer> {
 
 	private static final long serialVersionUID = 1L;
@@ -19,12 +21,12 @@ public class Entidade extends AbstractPersistable<Integer> {
 
 	@Transient
 	private transient final PropertyChangeSupport property = new PropertyChangeSupport(this);
-	
+
 	@Override
-	public void setId(Integer id) {
+	public void setId(final Integer id) {
 		super.setId(id);
 	}
-	
+
 	@PrePersist
 	private void prePersist() {
 		status = StatusEntidade.ATIVO;
@@ -38,17 +40,19 @@ public class Entidade extends AbstractPersistable<Integer> {
 		property.removePropertyChangeListener(listener);
 	}
 
-	/*public void addPropertyChangeListener(final String propertyName, final PropertyChangeListener listener) {
-		property.addPropertyChangeListener(propertyName, listener);
-	}
-
-	public void removePropertyChangeListener(final String propertyName, final PropertyChangeListener listener) {
-		property.removePropertyChangeListener(propertyName, listener);
-	}
-
-	protected void firePropertyChange(final String propertyName, final Object oldValue, final Object newValue) {
-		property.firePropertyChange(propertyName, oldValue, newValue);
-	}*/
+	/*
+	 * public void addPropertyChangeListener(final String propertyName, final
+	 * PropertyChangeListener listener) {
+	 * property.addPropertyChangeListener(propertyName, listener); }
+	 * 
+	 * public void removePropertyChangeListener(final String propertyName, final
+	 * PropertyChangeListener listener) {
+	 * property.removePropertyChangeListener(propertyName, listener); }
+	 * 
+	 * protected void firePropertyChange(final String propertyName, final Object
+	 * oldValue, final Object newValue) {
+	 * property.firePropertyChange(propertyName, oldValue, newValue); }
+	 */
 
 	public StatusEntidade getStatus() {
 		return status;

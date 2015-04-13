@@ -81,8 +81,10 @@ public final class CalcularRecorrencia {
 	 * calculada.
 	 *
 	 * @author Wesley Luiz
-	 * @param data - Data calculada.
-	 * @param i - Valor da iteração atual.
+	 * @param data
+	 *            - Data calculada.
+	 * @param i
+	 *            - Valor da iteração atual.
 	 */
 	private void adicionarData(final Date database, final DateTime data, final int i) {
 		if (i > 0) {

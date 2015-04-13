@@ -2,8 +2,6 @@ package br.com.arq.ui;
 
 import javax.annotation.PostConstruct;
 import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -17,7 +15,6 @@ import br.com.arq.frame.AppFrame;
 import br.com.arq.model.Cliente;
 
 @Component
-@SuppressWarnings("unused")
 public class CadastrarClienteUI extends AppUI<Cliente> {
 
 	@Autowired
@@ -25,14 +22,14 @@ public class CadastrarClienteUI extends AppUI<Cliente> {
 
 	private JButton btnSalvar;
 	private JButton btnListar;
-	
+
 	private Cliente cliente;
 
 	@Override
 	public void iniciarDados() {
 		cliente = new Cliente();
 	}
-	
+
 	@Override
 	public java.awt.Component getFrame() {
 		return frame;

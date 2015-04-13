@@ -33,25 +33,25 @@ public class ListarFolhaUI extends AppUI<Folha> {
 	public void iniciarDados() {
 		// TODO Auto-generated method stub
 	}
-	
+
 	@PostConstruct
 	private void init() {
 		gerarTabela();
 		gerarModalDetalhe();
-		
+
 		btnDetalhar = new JButton("Detalhar");
-		
+
 		tabela.getPainelBtns().add(btnDetalhar);
-		
+
 		frame = new JDialog();
 		frame.getContentPane().setLayout(new MigLayout());
 		frame.add(tabela.getComponente(), "wrap, grow, push");
 		frame.setModal(true);
 		frame.pack();
-		
+
 		bind();
 	}
-	
+
 	private void gerarModalDetalhe() {
 		modalDetalhe = new JDialog(frame);
 		modalDetalhe.setTitle("Detalhes");
@@ -65,8 +65,8 @@ public class ListarFolhaUI extends AppUI<Folha> {
 	private JPanel gerarPanelValorDetalhe() {
 		txtDetalhe = new JMoneyField();
 		txtDetalhe.setColumns(20);
-		
-		JPanel panel = createJPanel();
+
+		final JPanel panel = createJPanel();
 		panel.add(new JLabel("Valor:"));
 		panel.add(txtDetalhe, "wrap");
 		return panel;
@@ -75,8 +75,8 @@ public class ListarFolhaUI extends AppUI<Folha> {
 	private JPanel gerarPanelAcaoDetalhe() {
 		btnSalvarDetalhe = new JButton("Salvar");
 		btnCancelarDetalhe = new JButton("Cancelar");
-		
-		JPanel panel = createJPanel();
+
+		final JPanel panel = createJPanel();
 		panel.add(btnSalvarDetalhe);
 		panel.add(btnCancelarDetalhe);
 		return panel;
@@ -84,8 +84,8 @@ public class ListarFolhaUI extends AppUI<Folha> {
 
 	private void gerarTabela() {
 		tabela = new AppTable<Folha>();
-		
-		ColumnBinding bind = tabela.bind(getBinding());
+
+		final ColumnBinding bind = tabela.bind(getBinding());
 		bind.addColumnBinding(0, "${categoria} ${totalParcela > 1 ? parcela : ''} ${totalParcela > 1 ? ' de ' : ''} ${totalParcela > 1 ? totalParcela : ''}", "Categoria");
 		bind.addColumnBinding(1, "${tipo}", "Tipo");
 		bind.addColumnBinding(2, "${statusFolha}", "Status");
@@ -93,17 +93,17 @@ public class ListarFolhaUI extends AppUI<Folha> {
 		bind.addColumnBinding(4, "${dataQuitacao}", "Quitação", new DateConverter());
 		bind.addColumnBinding(5, "${valor}", "Valor", new BigDecimalConverter());
 	}
-	
+
 	public void show() {
 		frame.setVisible(true);
 	}
-	
+
 	@Override
 	public Folha getEntidade() {
 		return entidade;
 	}
-	
-	public void setEntidade(Folha entidade) {
+
+	public void setEntidade(final Folha entidade) {
 		this.entidade = entidade;
 	}
 
@@ -111,7 +111,7 @@ public class ListarFolhaUI extends AppUI<Folha> {
 	public JDialog getFrame() {
 		return frame;
 	}
-	
+
 	public AppTable<Folha> getTabela() {
 		return tabela;
 	}

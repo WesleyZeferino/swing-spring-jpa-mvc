@@ -23,16 +23,17 @@ public class ListarClienteController extends AppController<Cliente> {
 	@PostConstruct
 	private void init() {
 		ui.getBtnAtualizar().addActionListener(e -> {
-			Page<Cliente> page = dao.findAll(new PageRequest(0, 15));
+			final Page<Cliente> page = dao.findAll(new PageRequest(0, 15));
 			ui.setDados(page.getContent());
 		});
 	}
-	
+
 	@Override
 	public ClienteDAO getDao() {
 		return dao;
 	}
 
+	@Override
 	public ListarClienteUI getUi() {
 		return ui;
 	}
