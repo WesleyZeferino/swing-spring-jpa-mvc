@@ -3,6 +3,7 @@ package br.com.arq.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -43,14 +44,14 @@ public class AppTable<T> {
 		scroll = new JScrollPane();
 		pnlPaginacao = new JPanel(new MigLayout());
 
-		btnPrimeiro = new JButton("<<");
-		btnAnterior = new JButton("<");
-		btnProximo = new JButton(">");
-		btnUltimo = new JButton(">>");
-		btnAtualizar = new JButton("Atualizar");
-		btnEditar = new JButton("Editar");
-		btnCancelar = new JButton("Cancelar");
-		btnExcluir = new JButton("Excluir");
+		btnPrimeiro = new JButton(new ImageIcon(getClass().getResource("/icon/Symbol_Rewind.png")));
+		btnAnterior = new JButton(new ImageIcon(getClass().getResource("/icon/Symbol_Play_Reversed.png")));
+		btnProximo = new JButton(new ImageIcon(getClass().getResource("/icon/Symbol_Play.png")));
+		btnUltimo = new JButton(new ImageIcon(getClass().getResource("/icon/Symbol_FastForward.png")));
+		btnAtualizar = new JButton("Atualizar", new ImageIcon(getClass().getResource("/icon/refresh.png")));
+		btnEditar = new JButton("Editar", new ImageIcon(getClass().getResource("/icon/Edit-Document-icon.png")));
+		btnCancelar = new JButton("Sair", new ImageIcon(getClass().getResource("/icon/Logout.png")));
+		btnExcluir = new JButton("Excluir", new ImageIcon(getClass().getResource("/icon/Delete.png")));
 		lbPaginacao = new JLabel("(0 de 0)");
 
 		pnlPaginacao.setBorder(new EtchedBorder());

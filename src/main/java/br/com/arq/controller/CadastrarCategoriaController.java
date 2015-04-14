@@ -21,6 +21,9 @@ public class CadastrarCategoriaController extends AppController<Categoria> {
 
 	@Autowired
 	private ListasUteis listas;
+	
+	@Autowired
+	private ListarCategoriaController lstController;
 
 	@PostConstruct
 	private void init() {
@@ -28,6 +31,12 @@ public class CadastrarCategoriaController extends AppController<Categoria> {
 			salvar(ui);
 			listas.setCategorias(dao.findAll());
 		});
+		
+		ui.getBtnListar().addActionListener(e -> lstController.exibirModal());
+	}
+	
+	public void exibirModal() {
+		
 	}
 
 	@Override

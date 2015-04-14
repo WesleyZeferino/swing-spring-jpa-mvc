@@ -21,12 +21,20 @@ public class CadastrarContaController extends AppController<ContaBancaria> {
 
 	@Autowired
 	private ListasUteis listas;
+	
+	@Autowired
+	private ListarContaController lstController;
 
 	@PostConstruct
 	private void init() {
 		ui.getBtnSalvar().addActionListener(e -> {
 			salvar(ui);
 			listas.setContas(dao.findAll());
+		});
+		
+		ui.getBtnListar().addActionListener(e -> {
+			lstController.atualizar();
+			lstController.getUi().getFrame().setVisible(true);
 		});
 	}
 

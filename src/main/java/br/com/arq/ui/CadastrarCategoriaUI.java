@@ -19,6 +19,8 @@ public class CadastrarCategoriaUI extends CadastroUI<Categoria> {
 	private Categoria entidade;
 	private JInternalFrame frame;
 
+	private JTextField txtDescricao;
+
 	@Override
 	public void iniciarDados() {
 		entidade = new Categoria();
@@ -38,7 +40,7 @@ public class CadastrarCategoriaUI extends CadastroUI<Categoria> {
 	}
 
 	private Component getPanelCadastro() {
-		final JTextField txtDescricao = new JTextField(20);
+		txtDescricao = new JTextField(20);
 
 		getBinding().add(this, "${entidade.descricao}", txtDescricao);
 
@@ -61,5 +63,9 @@ public class CadastrarCategoriaUI extends CadastroUI<Categoria> {
 
 	public void setEntidade(final Categoria entidade) {
 		this.entidade = entidade;
+	}
+
+	public JTextField getTxtDescricao() {
+		return txtDescricao;
 	}
 }

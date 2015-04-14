@@ -1,6 +1,7 @@
 package br.com.arq.ui;
 
 import javax.annotation.PostConstruct;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
@@ -21,10 +22,10 @@ public abstract class CadastroUI<T extends Entidade> extends AppUI<T> {
 
 	@PostConstruct
 	private void init() {
-		btnSalvar = new JButton("Salvar");
-		btnSair = new JButton("Sair");
-		btnLimpar = new JButton("Limpar");
-		btnListar = new JButton("Listar");
+		btnSalvar = new JButton("Salvar", new ImageIcon(getClass().getResource("/icon/Save.png")));
+		btnSair = new JButton("Sair", new ImageIcon(getClass().getResource("/icon/Logout.png")));
+		btnLimpar = new JButton("Limpar", new ImageIcon(getClass().getResource("/icon/refresh.png")));
+		btnListar = new JButton("Listar", new ImageIcon(getClass().getResource("/icon/News.png")));
 	}
 
 	protected JPanel getPanelBtns() {

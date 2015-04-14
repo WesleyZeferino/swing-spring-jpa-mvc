@@ -19,6 +19,8 @@ public class CadastrarContaUI extends CadastroUI<ContaBancaria> {
 	private ContaBancaria entidade;
 	private JInternalFrame frame;
 
+	private JTextField txtDescricao;
+
 	@Override
 	public void iniciarDados() {
 		entidade = new ContaBancaria();
@@ -38,7 +40,7 @@ public class CadastrarContaUI extends CadastroUI<ContaBancaria> {
 	}
 
 	private JPanel getPanelCadastro() {
-		final JTextField txtDescricao = new JTextField(20);
+		txtDescricao = new JTextField(20);
 
 		getBinding().add(this, "${entidade.descricao}", txtDescricao);
 
@@ -61,5 +63,9 @@ public class CadastrarContaUI extends CadastroUI<ContaBancaria> {
 
 	public void setEntidade(final ContaBancaria entidade) {
 		this.entidade = entidade;
+	}
+
+	public JTextField getTxtDescricao() {
+		return txtDescricao;
 	}
 }
