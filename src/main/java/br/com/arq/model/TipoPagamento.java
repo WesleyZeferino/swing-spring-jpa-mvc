@@ -1,7 +1,12 @@
 package br.com.arq.model;
 
 public enum TipoPagamento {
-	DINHEIRO("Dinheiro"), CARTAO_DEBITO("Cartão de Débito"), CARTAO_CREDITO("Cartão de Crédito"), CHEQUE("Cheque"), DEBITO("Débito automático"), INDEFINIDO("");
+	INDEFINIDO(""),
+	DINHEIRO("Dinheiro"), 
+	CARTAO_DEBITO("Cartão de Débito"), 
+	CARTAO_CREDITO("Cartão de Crédito"), 
+	CHEQUE("Cheque"), 
+	DEBITO("Débito automático");
 
 	private final String descricao;
 

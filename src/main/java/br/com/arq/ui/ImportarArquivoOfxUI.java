@@ -12,6 +12,7 @@ import java.util.logging.Level;
 
 import javax.annotation.PostConstruct;
 import javax.swing.DefaultCellEditor;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -30,10 +31,14 @@ import br.com.arq.dto.TransacaoDTO;
 import br.com.arq.model.Categoria;
 import br.com.arq.model.Folha;
 import br.com.arq.util.BindingUtil;
+import br.com.arq.util.ObjetoUtil;
+import br.com.arq.validation.ValidacaoException;
 
 @org.springframework.stereotype.Component
 public class ImportarArquivoOfxUI extends AppUI<Folha> {
 
+	private static final String MSG_ARQUIVO_INVALIDO = "Arquivo inválido!";
+	private static final String EXTENSAO_OFX = "ofx";
 	private static final String RAIZ = "/";
 	private JFileChooser chooser;
 	private JDialog modal;
@@ -52,6 +57,7 @@ public class ImportarArquivoOfxUI extends AppUI<Folha> {
 		categorias = ObservableCollections.observableList(new ArrayList<Categoria>());
 
 		modal = new JDialog();
+		modal.setTitle(CadastrarFolhaUI.TITULO_FRAME);
 		modal.setModal(true);
 		modal.getContentPane().setLayout(new MigLayout());
 		modal.add(getScroll(), "wrap, grow, push");
@@ -72,8 +78,8 @@ public class ImportarArquivoOfxUI extends AppUI<Folha> {
 	}
 
 	private JPanel getBtnsAcoes() {
-		btnSalvar = new JButton("Salvar");
-		btnCancelar = new JButton("Cancelar");
+		btnSalvar = new JButton("Salvar", new ImageIcon(getClass().getResource("/icon/Save.png")));
+		btnCancelar = new JButton("Sair", new ImageIcon(getClass().getResource("/icon/Logout.png")));
 
 		final JPanel panel = createJPanel();
 		panel.add(btnSalvar);
@@ -92,11 +98,19 @@ public class ImportarArquivoOfxUI extends AppUI<Folha> {
 
 	public InputStream getArquivo() {
 		final File file = chooser.getSelectedFile();
-		try {
-			return new FileInputStream(file);
-		} catch (final FileNotFoundException e) {
-			LOG.log(Level.WARNING, null, e);
+
+		if (ObjetoUtil.isReferencia(file)) {
+			if (file.getName().endsWith(EXTENSAO_OFX)) {
+				try {
+					return new FileInputStream(file);
+				} catch (final FileNotFoundException e) {
+					LOG.log(Level.WARNING, null, e);
+				}
+			} else {
+				throw new ValidacaoException(MSG_ARQUIVO_INVALIDO);
+			}
 		}
+		
 		return null;
 	}
 

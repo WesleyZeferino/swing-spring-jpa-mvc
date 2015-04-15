@@ -53,7 +53,7 @@ public class CadastrarFolhaController extends AppController<Folha> {
 				ui.resetarCombos();
 			} else {
 				try {
-					ui.validar();
+					validar();
 					ui.getDialogRecorrencia().setVisible(true);
 				} catch (final ValidacaoException ex) {
 					exibirMensagemErro(ex.getMessage(), ui.getFrame());

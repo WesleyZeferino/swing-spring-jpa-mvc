@@ -13,22 +13,15 @@ import javax.swing.text.JTextComponent;
 import net.miginfocom.swing.MigLayout;
 
 import org.jdesktop.beansbinding.BindingGroup;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import br.com.arq.model.Entidade;
 import br.com.arq.util.BindingUtil;
-import br.com.arq.validation.Validador;
 
-@Component
 public abstract class AppUI<T extends Entidade> {
 
 	private final BindingUtil binding;
 
 	protected static final Logger LOG = Logger.getLogger(AppUI.class.getName());
-
-	@Autowired
-	private Validador<T> validador;
 
 	public AppUI() {
 		binding = BindingUtil.create(new BindingGroup());
@@ -39,10 +32,6 @@ public abstract class AppUI<T extends Entidade> {
 	public abstract void iniciarDados();
 
 	public abstract java.awt.Component getFrame();
-
-	public void validar() {
-		validador.validar(getEntidade());
-	}
 
 	public void limparComponentes() {
 		final java.awt.Component component = getFrame();

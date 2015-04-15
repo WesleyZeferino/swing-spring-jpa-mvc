@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.Arrays;
 
 import javax.annotation.PostConstruct;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -38,8 +39,8 @@ import br.com.arq.util.ListasUteis;
 @Component
 public class CadastrarFolhaUI extends CadastroUI<Folha> {
 
+	public static final String TITULO_FRAME = "Cadastro de Folha";
 	private static final String TITULO_FRAME_RECORRENCIA = "Recorrência";
-	private static final String TITULO_FRAME = "Cadastro de Folha";
 
 	@Autowired
 	private ListasUteis listas;
@@ -108,7 +109,7 @@ public class CadastrarFolhaUI extends CadastroUI<Folha> {
 
 	@Override
 	protected JPanel getPanelBtns() {
-		btnImportar = new JButton("Importar");
+		btnImportar = new JButton("Importar( *.ofx)", new ImageIcon(getClass().getResource("/icon/Arrow_Down.png")));
 
 		final JPanel panel = new JPanel(new MigLayout());
 		panel.setBorder(new EtchedBorder());
@@ -122,8 +123,8 @@ public class CadastrarFolhaUI extends CadastroUI<Folha> {
 	}
 
 	private JPanel getBtnsRecorrencia() {
-		btnSalvarRec = new JButton("Salvar");
-		btnCancelarRec = new JButton("Cancelar");
+		btnSalvarRec = new JButton("Salvar", new ImageIcon(getClass().getResource("/icon/Save.png")));
+		btnCancelarRec = new JButton("Sair", new ImageIcon(getClass().getResource("/icon/Logout.png")));
 
 		final JPanel panel = createJPanel();
 		panel.add(btnSalvarRec);
@@ -170,6 +171,7 @@ public class CadastrarFolhaUI extends CadastroUI<Folha> {
 		bin.addJComboBoxBinding(Arrays.asList(StatusFolha.values()), cmbStatus);
 		bin.addJComboBoxBinding(Arrays.asList(TipoPagamento.values()), cmbTipoPagamento);
 		bin.addJComboBoxBinding(listas.getCategorias(), cmbCategoria);
+		bin.add(cmbTipoPagamento, "${selectedItem.descricao != ''}", txtQuitacao, "enabled");
 		bin.add(this, "${folha.descricao}", txtDescricao);
 		bin.add(this, "${folha.dataPrevistaQuitacao}", txtPrevQuitacao, new DateConverter());
 		bin.add(this, "${folha.dataQuitacao}", txtQuitacao, new DateConverter());
@@ -181,19 +183,19 @@ public class CadastrarFolhaUI extends CadastroUI<Folha> {
 
 		panelCadastro = new JPanel(new MigLayout());
 		panelCadastro.setBorder(new EtchedBorder());
-		panelCadastro.add(new JLabel("Tipo Folha:"));
+		panelCadastro.add(new JLabel("Tipo Folha*:"));
 		panelCadastro.add(cmbTipoFolha, "wrap, growx");
-		panelCadastro.add(new JLabel("Status:"));
+		panelCadastro.add(new JLabel("Status*:"));
 		panelCadastro.add(cmbStatus, "wrap, growx");
 		panelCadastro.add(new JLabel("Pagamento:"));
 		panelCadastro.add(cmbTipoPagamento, "wrap, growx");
-		panelCadastro.add(new JLabel("Categoria:"));
+		panelCadastro.add(new JLabel("Categoria*:"));
 		panelCadastro.add(cmbCategoria, "wrap, growx");
 		panelCadastro.add(new JLabel("Previsão de Quitação:"));
 		panelCadastro.add(txtPrevQuitacao, "wrap, growx");
 		panelCadastro.add(new JLabel("Data Quitação:"));
 		panelCadastro.add(txtQuitacao, "wrap, growx");
-		panelCadastro.add(new JLabel("Valor:"));
+		panelCadastro.add(new JLabel("Valor*:"));
 		panelCadastro.add(txtValor, "wrap, growx");
 		panelCadastro.add(new JLabel("Descrição:"));
 		panelCadastro.add(txtDescricao, "wrap, growx");

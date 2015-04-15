@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Frame;
 
 import javax.annotation.PostConstruct;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
@@ -55,9 +56,9 @@ public class PrincipalUI extends JFrame {
 
 	private void gerarBarraMenus() {
 		final JMenuBar menuBar = new JMenuBar();
-		menuCadFolha = new JMenuItem("Folha");
-		menuCadConta = new JMenuItem("Conta");
-		menuCadCategoria = new JMenuItem("Categoria");
+		menuCadFolha = new JMenuItem("Folha", new ImageIcon(getClass().getResource("/icon/Status-wallet-open-icon.png")));
+		menuCadConta = new JMenuItem("Conta", new ImageIcon(getClass().getResource("/icon/User.png")));
+		menuCadCategoria = new JMenuItem("Categoria", new ImageIcon(getClass().getResource("/icon/Paste.png")));
 
 		final JMenu menuCad = new JMenu("Cadastros");
 		menuCad.add(menuCadFolha);

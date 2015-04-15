@@ -6,15 +6,18 @@ import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import br.com.arq.dao.AppDAO;
 import br.com.arq.model.Entidade;
 import br.com.arq.ui.AppUI;
 import br.com.arq.validation.ValidacaoException;
+import br.com.arq.validation.Validador;
 
 public abstract class AppController<T extends Entidade> {
 
+	private static final String TITULO_ALERTA = "Alerta";
 	private static final String TITULO_EXCLUSAO = "Exclusão";
 	private static final String TITULO_ERRO = "Erro";
 
@@ -23,10 +26,21 @@ public abstract class AppController<T extends Entidade> {
 	protected static final String MSG_EXCLUIR = "Quer excluir este(s) item(ns)?";
 	protected static final String MSG_SALVAR_SUCESSO = "Dados salvos com sucesso!";
 	protected static final Logger LOG = Logger.getLogger(AppController.class.getName());
+	
+	@Autowired
+	private Validador<T> validador;
 
 	protected abstract AppDAO<T> getDao();
 
 	protected abstract AppUI<T> getUi();
+	
+	public void validar() {
+		validar(getUi().getEntidade());
+	}
+	
+	public void validar(T entidade) {
+		validador.validar(entidade);
+	}
 
 	public void excluir() {
 		excluir(getUi().getFrame(), getUi().getEntidade());
@@ -73,7 +87,7 @@ public abstract class AppController<T extends Entidade> {
 	public void salvar(final AppUI<T> ui) {
 		final Component comp = ui.getFrame();
 		try {
-			ui.validar();
+			validar();
 			getDao().save(ui.getEntidade());
 			ui.iniciarDados();
 			ui.limparComponentes();
@@ -85,6 +99,10 @@ public abstract class AppController<T extends Entidade> {
 
 	protected void exibirMensagemErro(final String msg, final Component comp) {
 		JOptionPane.showMessageDialog(comp, msg, TITULO_ERRO, JOptionPane.ERROR_MESSAGE);
+	}
+	
+	protected void exibirMensagemAlerta(final String msg, final Component comp) {
+		JOptionPane.showMessageDialog(comp, msg, TITULO_ALERTA, JOptionPane.WARNING_MESSAGE);
 	}
 
 	protected void exibirMensagemSalvarSucesso(final Component comp) {
