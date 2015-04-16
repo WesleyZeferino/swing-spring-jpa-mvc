@@ -1,16 +1,12 @@
 package br.com.arq.controller;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.logging.Level;
 
 import javax.annotation.PostConstruct;
@@ -18,13 +14,9 @@ import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.jdesktop.beansbinding.BindingGroup;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,41 +113,6 @@ public class ListarFolhaController extends PaginacaoController<Folha> {
 		});
 
 		bind();
-	}
-
-	public static void main(final String[] args) {
-		importarArquivoXls(System.out::println);
-	}
-
-	private static void importarArquivoXls(Consumer<Object> action) {
-		try {
-			final InputStream in = new FileInputStream("/home/fabrica/Downloads/20150415.xls");
-			final HSSFWorkbook workbook = new HSSFWorkbook(in);
-			final HSSFSheet sheet = workbook.getSheetAt(0);
-			final int lastRowNum = sheet.getLastRowNum();
-			int indRow = 0;
-			
-			while (indRow < lastRowNum) {
-				final HSSFRow row = sheet.getRow(indRow);
-				final int lastCellNum = row.getLastCellNum();
-				int indCell = 0;
-				
-				while (indCell < lastCellNum) {
-					final HSSFCell cell = row.getCell(indCell);
-					final int type = cell.getCellType();
-					
-					if (type == Cell.CELL_TYPE_STRING) {
-						action.accept(cell.getStringCellValue());
-					} else if (type == Cell.CELL_TYPE_NUMERIC) {
-						action.accept(cell.getNumericCellValue());
-					}
-					indCell++;
-				}
-				indRow++;
-			}
-		} catch (final IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	private void gerarArquivoXls(final File diretorio) {

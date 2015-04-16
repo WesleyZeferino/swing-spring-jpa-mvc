@@ -39,7 +39,7 @@ public class CadastrarFolhaController extends AppController<Folha> {
 	private CalcularRecorrencia calcRecorrencia;
 
 	@Autowired
-	private ImportarArquivoOfxController ofxController;
+	private ImportarArquivosController ofxController;
 
 	private ContaBancaria contaSelecionada;
 
@@ -77,7 +77,7 @@ public class CadastrarFolhaController extends AppController<Folha> {
 
 		ui.getBtnCancelarRec().addActionListener(e -> ui.getDialogRecorrencia().dispose());
 
-		ui.getBtnImportar().addActionListener(e -> ofxController.importarDadosArquivoOfx(ui.getFrame()));
+		ui.getBtnImportar().addActionListener(e -> ofxController.abrirFormularioEdicaoXls(ui.getFrame()));
 
 		ui.resetarCombos();
 	}

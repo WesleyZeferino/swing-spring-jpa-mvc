@@ -35,8 +35,9 @@ import br.com.arq.util.ObjetoUtil;
 import br.com.arq.validation.ValidacaoException;
 
 @org.springframework.stereotype.Component
-public class ImportarArquivoOfxUI extends AppUI<Folha> {
+public class ImportarArquivosUI extends AppUI<Folha> {
 
+	private static final String EXTENSAO_XLS = "xls";
 	private static final String MSG_ARQUIVO_INVALIDO = "Arquivo inválido!";
 	private static final String EXTENSAO_OFX = "ofx";
 	private static final String RAIZ = "/";
@@ -100,7 +101,7 @@ public class ImportarArquivoOfxUI extends AppUI<Folha> {
 		final File file = chooser.getSelectedFile();
 
 		if (ObjetoUtil.isReferencia(file)) {
-			if (file.getName().endsWith(EXTENSAO_OFX)) {
+			if (isArquivoOfx() || isArquivoXls()) {
 				try {
 					return new FileInputStream(file);
 				} catch (final FileNotFoundException e) {
@@ -112,6 +113,14 @@ public class ImportarArquivoOfxUI extends AppUI<Folha> {
 		}
 		
 		return null;
+	}
+
+	public boolean isArquivoXls() {
+		return chooser.getSelectedFile().getName().endsWith(EXTENSAO_XLS);
+	}
+
+	public boolean isArquivoOfx() {
+		return chooser.getSelectedFile().getName().endsWith(EXTENSAO_OFX);
 	}
 
 	public void showChooser(final String diretorio, final Component parent) {

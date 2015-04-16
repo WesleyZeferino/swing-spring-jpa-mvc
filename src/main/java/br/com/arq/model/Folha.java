@@ -49,6 +49,25 @@ public class Folha extends Entidade {
 
 	@Size(max = 255)
 	private String descricao;
+	
+	public Folha() {
+		super();
+	}
+
+	public Folha(TipoFolha tipo, StatusFolha statusFolha, BigDecimal valor, ContaBancaria conta, Categoria categoria, String descricao, TipoPagamento tipoPagamento, Date dataQuitacao, Date dataPrevistaQuitacao, Date dataLancamento, Integer id) {
+		super();
+		this.tipo = tipo;
+		this.statusFolha = statusFolha;
+		this.valor = valor;
+		this.conta = conta;
+		this.categoria = categoria;
+		this.descricao = descricao;
+		this.tipoPagamento = tipoPagamento;
+		this.dataQuitacao = dataQuitacao;
+		this.dataPrevistaQuitacao = dataPrevistaQuitacao;
+		this.dataLancamento = dataLancamento;
+		setId(id);
+	}
 
 	@Column
 	private int parcela;

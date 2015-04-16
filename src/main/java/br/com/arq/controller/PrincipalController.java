@@ -28,7 +28,7 @@ public class PrincipalController {
 	private CadastrarCategoriaController categoriaController;
 
 	@Autowired
-	private ImportarArquivoOfxController ofxController;
+	private ImportarArquivosController ofxController;
 
 	@Autowired
 	private ListasUteis listas;
@@ -81,7 +81,7 @@ public class PrincipalController {
 		return folhaController;
 	}
 
-	public ImportarArquivoOfxController getOfxController() {
+	public ImportarArquivosController getOfxController() {
 		return ofxController;
 	}
 
