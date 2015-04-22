@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorio_folha" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="258dd57c-39d7-4647-a61b-8d88a9355f6f">
+	<property name="ireport.zoom" value="1.6105100000000077"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="borda" style="formatacao" fontSize="7">
+		<box>
+			<pen lineWidth="0.5"/>
+			<topPen lineWidth="0.5"/>
+			<leftPen lineWidth="0.5"/>
+			<bottomPen lineWidth="0.5"/>
+			<rightPen lineWidth="0.5"/>
+		</box>
+	</style>
+	<style name="formatacao" fontName="SansSerif" fontSize="7" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+	<style name="cor" style="borda">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{tipo}.getDescricao().equalsIgnoreCase("Despesa")]]></conditionExpression>
+			<style forecolor="#F12010">
+				<pen lineColor="#000000"/>
+				<box>
+					<pen lineColor="#000000"/>
+					<topPen lineColor="#000000"/>
+					<leftPen lineColor="#000000"/>
+					<bottomPen lineColor="#000000"/>
+					<rightPen lineColor="#000000"/>
+				</box>
+			</style>
+		</conditionalStyle>
+	</style>
+	<parameter name="DESPESA" class="java.math.BigDecimal"/>
+	<parameter name="RECEITA" class="java.math.BigDecimal"/>
+	<parameter name="SALDO" class="java.math.BigDecimal"/>
+	<parameter name="CONTA" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="tipoPagamento" class="br.com.arq.model.TipoPagamento">
+		<fieldDescription><![CDATA[tipoPagamento]]></fieldDescription>
+	</field>
+	<field name="statusFolha" class="br.com.arq.model.StatusFolha">
+		<fieldDescription><![CDATA[statusFolha]]></fieldDescription>
+	</field>
+	<field name="conta" class="br.com.arq.model.ContaBancaria">
+		<fieldDescription><![CDATA[conta]]></fieldDescription>
+	</field>
+	<field name="pai" class="br.com.arq.model.Folha">
+		<fieldDescription><![CDATA[pai]]></fieldDescription>
+	</field>
+	<field name="tipo" class="br.com.arq.model.TipoFolha">
+		<fieldDescription><![CDATA[tipo]]></fieldDescription>
+	</field>
+	<field name="dataQuitacao" class="java.util.Date">
+		<fieldDescription><![CDATA[dataQuitacao]]></fieldDescription>
+	</field>
+	<field name="parcela" class="java.lang.Integer">
+		<fieldDescription><![CDATA[parcela]]></fieldDescription>
+	</field>
+	<field name="dataPrevistaQuitacao" class="java.util.Date">
+		<fieldDescription><![CDATA[dataPrevistaQuitacao]]></fieldDescription>
+	</field>
+	<field name="descricao" class="java.lang.String">
+		<fieldDescription><![CDATA[descricao]]></fieldDescription>
+	</field>
+	<field name="totalParcela" class="java.lang.Integer">
+		<fieldDescription><![CDATA[totalParcela]]></fieldDescription>
+	</field>
+	<field name="dataLancamento" class="java.util.Date">
+		<fieldDescription><![CDATA[dataLancamento]]></fieldDescription>
+	</field>
+	<field name="categoria" class="br.com.arq.model.Categoria">
+		<fieldDescription><![CDATA[categoria]]></fieldDescription>
+	</field>
+	<field name="valor" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[valor]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="87" splitType="Stretch">
+			<textField pattern="#,##0.00">
+				<reportElement style="formatacao" x="702" y="0" width="100" height="20" uuid="7665845d-7b92-4115-9b8d-262bb8d9d15a"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{RECEITA}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement style="formatacao" x="702" y="20" width="100" height="20" uuid="9fc18984-c925-44b9-bf71-e5f7f51fe6df"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{DESPESA}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement style="formatacao" x="702" y="40" width="100" height="20" uuid="41d765f9-72ea-4849-9bee-f4224a4cb5a0"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{SALDO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="formatacao" x="0" y="67" width="175" height="20" uuid="c866bf4e-5fb8-4ecb-b7c8-8073830235d4"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Conta Bancária: " + $P{CONTA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="formatacao" x="642" y="0" width="60" height="20" uuid="2c98027c-8ac6-4e0c-b9c0-f5f41033a387"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Receita:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="formatacao" x="642" y="20" width="60" height="20" uuid="42389277-d9f5-411b-ab69-d8c4180603f7"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Despesa:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="formatacao" x="642" y="40" width="60" height="20" uuid="e5f1c5da-46f2-4917-af00-1399b1f14e63"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Saldo:]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="formatacao" x="0" y="47" width="175" height="20" uuid="2547f63d-6739-4ae5-82a9-81748ec8532d"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement style="borda" x="0" y="0" width="269" height="20" uuid="5d17772a-ce9b-4d76-ad08-c918e6a95ae8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Categoria]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="borda" x="269" y="0" width="100" height="20" uuid="e0221011-dd23-4f78-b5ce-fbd6dd116e7f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lançamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="borda" x="369" y="0" width="100" height="20" uuid="f7f6bd46-3b7e-4062-afd8-bd6035f3f13e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Prev. Quit.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="borda" x="469" y="0" width="100" height="20" uuid="05ff0cf9-93d0-4325-8054-b58206339d3c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quitação]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="borda" x="569" y="0" width="100" height="20" uuid="f55e15c3-f6d3-4bf3-b892-bf41cf3b6680"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pagamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="borda" x="669" y="0" width="133" height="20" uuid="b7ce3816-5fca-4868-8243-e8f2aa2e2f1d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement style="borda" x="0" y="0" width="269" height="20" uuid="4ee7fa66-d4b2-49fc-b007-2b3884c6d326"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["  " + $F{categoria}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="borda" x="269" y="0" width="100" height="20" uuid="ede25aca-a07a-4f27-b78a-2a0ba5a8aacf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataLancamento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement style="borda" x="369" y="0" width="100" height="20" uuid="b5488f42-6402-4e3f-a3df-eaa31008a5bd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataPrevistaQuitacao}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement style="borda" x="469" y="0" width="100" height="20" uuid="e480f0c7-9c05-4d16-9787-79e8614e650b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataQuitacao}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement style="cor" x="669" y="0" width="107" height="20" uuid="10eaaae2-c393-452c-9f8a-09e777c9f360"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="borda" x="569" y="0" width="100" height="20" uuid="eaa30b52-4a0a-4c21-b03c-b4ccc2f45e50"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[""+$F{tipoPagamento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="cor" x="776" y="0" width="26" height="20" uuid="b8751a59-1f3d-4513-82b1-11c81d920da8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipo}.getDescricao().equals("Despesa") ? "D" : "R"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement style="formatacao" x="674" y="1" width="126" height="20" uuid="b51fa121-3396-4fa5-be4c-bbbb386a3f4f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER} + " de " + $V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

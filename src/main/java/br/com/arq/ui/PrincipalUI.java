@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -29,6 +30,8 @@ public class PrincipalUI extends JFrame {
 	private JMenuItem menuCadConta;
 	private JComboBox<ContaBancaria> cmbConta;
 	private JMenuItem menuCadCategoria;
+	private JLabel lbSaldo;
+	private JMenuItem menuExtrato;
 
 	@PostConstruct
 	private void init() {
@@ -42,12 +45,14 @@ public class PrincipalUI extends JFrame {
 		desktop.setBackground(Color.WHITE);
 
 		cmbConta = new JComboBox<ContaBancaria>();
+		lbSaldo = new JLabel();
 
-		final JPanel pnlAtralho = new JPanel(new MigLayout());
-		pnlAtralho.setBorder(new EtchedBorder());
-		pnlAtralho.add(cmbConta);
+		final JPanel pnlAtalho = new JPanel(new MigLayout());
+		pnlAtalho.setBorder(new EtchedBorder());
+		pnlAtalho.add(cmbConta);
+		pnlAtalho.add(lbSaldo);
 
-		add(pnlAtralho, "wrap, growx");
+		add(pnlAtalho, "wrap, growx");
 		add(desktop, "push, grow");
 		pack();
 
@@ -59,13 +64,18 @@ public class PrincipalUI extends JFrame {
 		menuCadFolha = new JMenuItem("Folha", new ImageIcon(getClass().getResource("/icon/Status-wallet-open-icon.png")));
 		menuCadConta = new JMenuItem("Conta", new ImageIcon(getClass().getResource("/icon/User.png")));
 		menuCadCategoria = new JMenuItem("Categoria", new ImageIcon(getClass().getResource("/icon/Paste.png")));
+		menuExtrato = new JMenuItem("Extrato");
 
 		final JMenu menuCad = new JMenu("Cadastros");
 		menuCad.add(menuCadFolha);
 		menuCad.add(menuCadConta);
 		menuCad.add(menuCadCategoria);
 
+		final JMenu menuRel = new JMenu("Relatórios");
+		menuRel.add(menuExtrato);
+
 		menuBar.add(menuCad);
+		menuBar.add(menuRel);
 
 		super.setJMenuBar(menuBar);
 	}
@@ -88,5 +98,13 @@ public class PrincipalUI extends JFrame {
 
 	public JMenuItem getMenuCadCategoria() {
 		return menuCadCategoria;
+	}
+
+	public JLabel getLbSaldo() {
+		return lbSaldo;
+	}
+
+	public JMenuItem getMenuExtrato() {
+		return menuExtrato;
 	}
 }

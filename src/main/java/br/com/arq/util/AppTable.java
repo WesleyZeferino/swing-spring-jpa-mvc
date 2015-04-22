@@ -33,6 +33,7 @@ public class AppTable<T> {
 	private JButton btnEditar;
 	private JButton btnCancelar;
 	private JButton btnExcluir;
+	private JPanel pnlBtns;
 
 	public AppTable() {
 		init();
@@ -43,6 +44,7 @@ public class AppTable<T> {
 		tabela = new JTable();
 		scroll = new JScrollPane();
 		pnlPaginacao = new JPanel(new MigLayout());
+		pnlBtns = new JPanel(new MigLayout());
 
 		btnPrimeiro = new JButton(new ImageIcon(getClass().getResource("/icon/Symbol_Rewind.png")));
 		btnAnterior = new JButton(new ImageIcon(getClass().getResource("/icon/Symbol_Play_Reversed.png")));
@@ -55,22 +57,24 @@ public class AppTable<T> {
 		lbPaginacao = new JLabel("(0 de 0)");
 
 		pnlPaginacao.setBorder(new EtchedBorder());
+		pnlBtns.setBorder(new EtchedBorder());
 
 		pnlPaginacao.add(btnPrimeiro);
 		pnlPaginacao.add(btnAnterior);
 		pnlPaginacao.add(lbPaginacao);
 		pnlPaginacao.add(btnProximo);
 		pnlPaginacao.add(btnUltimo, "pushx");
-		pnlPaginacao.add(btnAtualizar);
-		pnlPaginacao.add(btnEditar);
-		pnlPaginacao.add(btnExcluir);
-		pnlPaginacao.add(btnCancelar);
+		
+		pnlBtns.add(btnAtualizar);
+		pnlBtns.add(btnEditar);
+		pnlBtns.add(btnExcluir);
+		pnlBtns.add(btnCancelar);
 
 		scroll.setViewportView(tabela);
 	}
 
 	public JPanel getPainelBtns() {
-		return pnlPaginacao;
+		return pnlBtns;
 	}
 
 	public T getItemSelecionado() {
@@ -94,6 +98,7 @@ public class AppTable<T> {
 
 	public JComponent getComponente() {
 		final JPanel painel = new JPanel(new MigLayout());
+		painel.add(pnlBtns, "wrap, growx, pushx");
 		painel.add(scroll, "wrap, grow, push");
 		painel.add(pnlPaginacao, "wrap, growx, pushx");
 		return painel;
