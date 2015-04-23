@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorio_folha" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="258dd57c-39d7-4647-a61b-8d88a9355f6f">
-	<property name="ireport.zoom" value="1.6105100000000077"/>
+	<property name="ireport.zoom" value="3.452271214393119"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="52"/>
+	<style name="formatacao" fontName="SansSerif" fontSize="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
 	<style name="borda" style="formatacao" fontSize="7">
 		<box>
 			<pen lineWidth="0.5"/>
@@ -12,7 +13,6 @@
 			<rightPen lineWidth="0.5"/>
 		</box>
 	</style>
-	<style name="formatacao" fontName="SansSerif" fontSize="7" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
 	<style name="cor" style="borda">
 		<conditionalStyle>
 			<conditionExpression><![CDATA[$F{tipo}.getDescricao().equalsIgnoreCase("Despesa")]]></conditionExpression>
@@ -184,7 +184,7 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="21" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<textField>
 				<reportElement style="borda" x="0" y="0" width="269" height="20" uuid="4ee7fa66-d4b2-49fc-b007-2b3884c6d326"/>
 				<textElement verticalAlignment="Middle">
@@ -239,11 +239,18 @@
 	<pageFooter>
 		<band height="21" splitType="Stretch">
 			<textField>
-				<reportElement style="formatacao" x="674" y="1" width="126" height="20" uuid="b51fa121-3396-4fa5-be4c-bbbb386a3f4f"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8"/>
+				<reportElement style="formatacao" x="681" y="1" width="80" height="20" uuid="d0b0cbb6-84ae-42a9-ab1c-d7d42bed8899"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER} + " de " + $V{PAGE_COUNT}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="formatacao" x="761" y="1" width="40" height="20" uuid="c0915d71-9766-45f1-8a38-7ec11ba12534"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

@@ -34,6 +34,7 @@ import br.com.arq.util.ObjetoUtil;
 @Component
 public class EmitirRelatorioController extends AppController<Folha> {
 
+	private static final String GRAFICO_FOLHA_JASPER = "/relatorios/grafico_folha.jasper";
 	private static final String RELATORIO_FOLHA_JASPER = "/relatorios/relatorio_folha.jasper";
 
 	@Autowired
@@ -48,34 +49,39 @@ public class EmitirRelatorioController extends AppController<Folha> {
 
 	@PostConstruct
 	private void init() {
-		ui.getBtnGerar().addActionListener(e -> gerarRelatorio());
+		ui.getBtnGerarRelatorio().addActionListener(e -> gerarRelatorio());
+		ui.getBtnGerarGrafico().addActionListener(e -> gerarGrafico());
 
 		final DateConverter dtConverter = new DateConverter();
 		final BindingUtil binding = BindingUtil.create(new BindingGroup());
-		List<StatusFolha> listaStatus = new ArrayList<StatusFolha>();
+		final List<StatusFolha> listaStatus = new ArrayList<StatusFolha>();
 		listaStatus.add(null);
 		listaStatus.addAll(Arrays.asList(StatusFolha.values()));
-		
+
 		binding.addJComboBoxBinding(listaStatus, ui.getCmbStatus());
 		binding.add(this, "${dataInicio}", ui.getTxtDataInicio(), dtConverter);
 		binding.add(this, "${dataFim}", ui.getTxtDataFim(), dtConverter);
 		binding.getBindingGroup().bind();
 	}
 
-	private void gerarRelatorio() {
-		final Integer idConta = contaSelecionada.getId();
-		List<Folha> dados = null;
-		final StatusFolha status = (StatusFolha) ui.getCmbStatus().getSelectedItem();
+	private void gerarGrafico() {
+		final JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(gerarDadosRelatorio());
+		final InputStream in = getClass().getResourceAsStream(GRAFICO_FOLHA_JASPER);
+		JasperPrint print = null;
 
-		if (ObjetoUtil.isReferencia(dataInicio, dataFim, status)) {
-			dados = dao.findAll(idConta, dataInicio, dataFim, status);
-		} else if (ObjetoUtil.isReferencia(dataInicio, dataFim)) {
-			dados = dao.findAll(idConta, dataInicio, dataFim);
-		} else {
-			dados = dao.findAll(idConta);
+		try {
+			print = JasperFillManager.fillReport(in, null, ds);
+		} catch (final JRException e) {
+			LOG.log(Level.SEVERE, "Erro ao tentar emitir relatório", e);
 		}
 
-		final JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(dados);
+		new JasperViewer(print, false).setVisible(true);
+	}
+
+	private void gerarRelatorio() {
+		final List<Folha> dados = gerarDadosRelatorio();
+
+		final JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(dados);
 		final InputStream in = getClass().getResourceAsStream(RELATORIO_FOLHA_JASPER);
 		final HashMap<String, Object> parametros = new HashMap<String, Object>();
 		JasperPrint print = null;
@@ -99,13 +105,27 @@ public class EmitirRelatorioController extends AppController<Folha> {
 		parametros.put("CONTA", contaSelecionada.getDescricao());
 
 		try {
-			print = JasperFillManager.fillReport(in, parametros, dataSource);
+			print = JasperFillManager.fillReport(in, parametros, ds);
 		} catch (final JRException e) {
 			LOG.log(Level.SEVERE, "Erro ao tentar emitir relatório", e);
 		}
 
-		final JasperViewer viewer = new JasperViewer(print, false);
-		viewer.setVisible(true);
+		new JasperViewer(print, false).setVisible(true);
+	}
+
+	private List<Folha> gerarDadosRelatorio() {
+		final Integer idConta = contaSelecionada.getId();
+		List<Folha> dados = null;
+		final StatusFolha status = (StatusFolha) ui.getCmbStatus().getSelectedItem();
+
+		if (ObjetoUtil.isReferencia(dataInicio, dataFim, status)) {
+			dados = dao.findAll(idConta, dataInicio, dataFim, status);
+		} else if (ObjetoUtil.isReferencia(dataInicio, dataFim)) {
+			dados = dao.findAll(idConta, dataInicio, dataFim);
+		} else {
+			dados = dao.findAll(idConta);
+		}
+		return dados;
 	}
 
 	@Override

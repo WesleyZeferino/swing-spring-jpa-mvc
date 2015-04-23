@@ -21,43 +21,46 @@ import br.com.arq.model.StatusFolha;
 
 @Component
 public class EmitirRelatorioUI extends AppUI<Folha> {
-	
+
 	private JInternalFrame frame;
-	private JButton btnGerar;
+	private JButton btnGerarRelatorio;
 	private JFormattedTextField txtDataInicio;
 	private JFormattedTextField txtDataFim;
 	private JComboBox<StatusFolha> cmbStatus;
-	
+	private JButton btnGerarGrafico;
+
 	@PostConstruct
 	private void init() {
 		frame = new JInternalFrame("Relatório");
-		btnGerar = new JButton("Gerar");
+		btnGerarRelatorio = new JButton("Gerar Relatório");
+		btnGerarGrafico = new JButton("Gerar Gráfico");
 		cmbStatus = new JComboBox<StatusFolha>();
-		
+
 		try {
 			txtDataInicio = new JFormattedTextField(new MaskFormatter("##/##/####"));
 			txtDataFim = new JFormattedTextField(new MaskFormatter("##/##/####"));
-		} catch (ParseException e) {
+		} catch (final ParseException e) {
 			LOG.log(Level.SEVERE, null, e);
 		}
-		
+
 		txtDataInicio.setColumns(10);
 		txtDataFim.setColumns(10);
-		
-		JPanel panel = createJPanel();
+
+		final JPanel panel = createJPanel();
 		panel.add(new JLabel("Prev. Quitação entre:"));
 		panel.add(txtDataInicio);
 		panel.add(new JLabel(" e "));
 		panel.add(txtDataFim, "wrap");
 		panel.add(new JLabel("Status:"));
 		panel.add(cmbStatus, "growx");
-		
+
 		frame.getContentPane().setLayout(new MigLayout());
 		frame.setClosable(true);
-		frame.add(panel, "wrap, growx");
-		frame.add(btnGerar);
+		frame.add(panel, "wrap, growx, spanx2");
+		frame.add(btnGerarRelatorio);
+		frame.add(btnGerarGrafico);
 		frame.pack();
-		
+
 		bind();
 	}
 
@@ -76,10 +79,6 @@ public class EmitirRelatorioUI extends AppUI<Folha> {
 		return frame;
 	}
 
-	public JButton getBtnGerar() {
-		return btnGerar;
-	}
-
 	public JFormattedTextField getTxtDataInicio() {
 		return txtDataInicio;
 	}
@@ -90,5 +89,13 @@ public class EmitirRelatorioUI extends AppUI<Folha> {
 
 	public JComboBox<StatusFolha> getCmbStatus() {
 		return cmbStatus;
+	}
+
+	public JButton getBtnGerarRelatorio() {
+		return btnGerarRelatorio;
+	}
+
+	public JButton getBtnGerarGrafico() {
+		return btnGerarGrafico;
 	}
 }

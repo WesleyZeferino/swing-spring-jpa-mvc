@@ -1,6 +1,7 @@
 package br.com.arq.controller;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 import javax.swing.JComponent;
@@ -61,13 +62,8 @@ public class PrincipalController {
 		contaController.getUi().getBtnSair().addActionListener(e -> fecharFrame(frCadConta));
 		categoriaController.getUi().getBtnSair().addActionListener(e -> fecharFrame(frCadCategoria));
 
-		BindingUtil.create(new BindingGroup())
-		.addJComboBoxBinding(listas.getContas(), ui.getCmbConta())
-		.add(this, "${folhaController.contaSelecionada}", ui.getCmbConta(), "selectedItem")
-		.add(this, "${folhaController.listController.contaSelecionada}", ui.getCmbConta(), "selectedItem")
-		.add(this, "${ofxController.contaSelecionada}", ui.getCmbConta(), "selectedItem")
-		.add(this, "${relatorioExtratoController.contaSelecionada}", ui.getCmbConta(), "selectedItem")
-		.getBindingGroup().bind();
+		BindingUtil.create(new BindingGroup()).addJComboBoxBinding(listas.getContas(), ui.getCmbConta()).add(this, "${folhaController.contaSelecionada}", ui.getCmbConta(), "selectedItem").add(this, "${folhaController.listController.contaSelecionada}", ui.getCmbConta(), "selectedItem").add(this, "${ofxController.contaSelecionada}", ui.getCmbConta(), "selectedItem")
+				.add(this, "${relatorioExtratoController.contaSelecionada}", ui.getCmbConta(), "selectedItem").getBindingGroup().bind();
 
 		if (!listas.getContas().isEmpty()) {
 			ui.getCmbConta().setSelectedIndex(0);
@@ -80,8 +76,12 @@ public class PrincipalController {
 		final ContaBancaria conta = (ContaBancaria) ui.getCmbConta().getSelectedItem();
 		BigDecimal saldo = new BigDecimal(0);
 		if (conta != null && conta.getId() != null) {
-			final BigDecimal despesa = folhaController.getDao().countBy(TipoFolha.DESPESA, conta.getId());
-			final BigDecimal receita = folhaController.getDao().countBy(TipoFolha.RECEITA, conta.getId());
+			BigDecimal despesa = folhaController.getDao().countBy(TipoFolha.DESPESA, conta.getId());
+			BigDecimal receita = folhaController.getDao().countBy(TipoFolha.RECEITA, conta.getId());
+			
+			despesa = Optional.ofNullable(despesa).orElse(new BigDecimal(0));
+			receita = Optional.ofNullable(receita).orElse(new BigDecimal(0));
+			
 			saldo = receita.subtract(despesa);
 		}
 
